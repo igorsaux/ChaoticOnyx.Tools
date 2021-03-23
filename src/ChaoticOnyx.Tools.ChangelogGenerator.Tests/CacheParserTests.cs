@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -8,18 +10,20 @@ using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.Converters;
 using YamlDotNet.Serialization.NamingConventions;
 
+#endregion
+
 namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
 {
     public class CacheParserTests : IDisposable
     {
-        private readonly string            _changelogsFolder  = Path.GetFullPath("./samples/");
-        private readonly string            _cacheFile         = ".all_changelog.yml";
-        private readonly string            _oldCacheFile      = ".old_changelog.yml";
-        private readonly string            _unknownFormatFile = ".unknown.yml";
+        private readonly string            _cacheFile        = ".all_changelog.yml";
+        private readonly string            _changelogsFolder = Path.GetFullPath("./samples/");
         private readonly DateTimeConverter _dateTimeConverter;
         private readonly IDeserializer     _deserializer;
+        private readonly string            _oldCacheFile = ".old_changelog.yml";
         private readonly ISerializer       _serializer;
-        
+        private readonly string            _unknownFormatFile = ".unknown.yml";
+
         public CacheParserTests()
         {
             List<string> formats = new();
@@ -37,7 +41,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
                                                  .WithNamingConvention(CamelCaseNamingConvention.Instance)
                                                  .Build();
         }
-        
+
         [Fact]
         public void CorrectParsingTest()
         {

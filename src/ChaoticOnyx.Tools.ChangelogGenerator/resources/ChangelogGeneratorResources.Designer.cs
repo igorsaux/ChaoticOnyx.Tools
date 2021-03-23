@@ -88,6 +88,15 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changelogs delta:.
+        /// </summary>
+        internal static string CHANGELOGS_DELTA {
+            get {
+                return ResourceManager.GetString("CHANGELOGS_DELTA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Application configured.
         /// </summary>
         internal static string DBG_CONFIGURED {
@@ -160,7 +169,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parsing file.
+        ///   Looks up a localized string similar to Parsing changelog file.
         /// </summary>
         internal static string PARSING_FILE {
             get {

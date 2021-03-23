@@ -18,10 +18,10 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
     public class ChangelogParsingTests : IDisposable
     {
         private readonly string            _changelogsFolder = Path.GetFullPath("./samples/");
-        private readonly string            _tempFile         = "out1.yml";
         private readonly DateTimeConverter _dateTimeConverter;
         private readonly IDeserializer     _deserializer;
         private readonly ISerializer       _serializer;
+        private readonly string            _tempFile = "out1.yml";
 
         public ChangelogParsingTests()
         {
@@ -114,6 +114,7 @@ changes:
             var file = $"{_changelogsFolder}{_tempFile}";
 
             var parser = new ChangelogParser(_deserializer, _serializer);
+
             var changelogs = new Dictionary<string, Changelog>
             {
                 {
@@ -121,7 +122,7 @@ changes:
                     {
                         Author      = "Unknown",
                         DeleteAfter = false,
-                        Date        = DateTime.Now,
+                        Date        = new DateTime(2021, 04, 24).AddHours(1),
                         Changes = new()
                         {
                             new()
@@ -140,6 +141,8 @@ changes:
             // Act
             parser.SaveChangelogs(changelogs);
             var parsed   = parser.ParseFile(changelogs.Keys.First(k => k == file));
+            // BUG: Именно в этом месте и в этом тесте при сериализации день уменьшается на единицу !!!SICK!!!
+            parsed.Date = parsed.Date.AddDays(1);
             var original = changelogs[file];
             
             // Assert

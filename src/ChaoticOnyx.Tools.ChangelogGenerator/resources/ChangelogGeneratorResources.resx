@@ -28,7 +28,7 @@
         <value>Searching changelogs in</value>
     </data>
     <data name="PARSING_FILE" xml:space="preserve">
-        <value>Parsing file</value>
+        <value>Parsing changelog file</value>
     </data>
     <data name="PARSING_ERROR" xml:space="preserve">
         <value>Parsing error in</value>
@@ -65,5 +65,8 @@
     </data>
     <data name="FOLDER_DOES_NOT_EXISTS" xml:space="preserve">
         <value>Folder does not exist</value>
+    </data>
+    <data name="CHANGELOGS_DELTA" xml:space="preserve">
+        <value>Changelogs delta:</value>
     </data>
 </root>

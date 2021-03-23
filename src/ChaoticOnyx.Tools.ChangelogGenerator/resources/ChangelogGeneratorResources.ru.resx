@@ -21,7 +21,7 @@
         <value>Поиск чейнджлогов в</value>
     </data>
     <data name="PARSING_FILE" xml:space="preserve">
-        <value>Парсинг файла</value>
+        <value>Парсинг чейнджлог файла</value>
     </data>
     <data name="PARSING_ERROR" xml:space="preserve">
         <value>Ошибка при парсинге в</value>
@@ -58,5 +58,8 @@
     </data>
     <data name="FOLDER_DOES_NOT_EXISTS" xml:space="preserve">
         <value>Директория не существует</value>
+    </data>
+    <data name="CHANGELOGS_DELTA" xml:space="preserve">
+        <value>Дельта чейнджлогов:</value>
     </data>
 </root>

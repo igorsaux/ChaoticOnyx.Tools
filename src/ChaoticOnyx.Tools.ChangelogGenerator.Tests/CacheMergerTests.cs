@@ -1,6 +1,10 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using Xunit;
+
+#endregion
 
 namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
 {
@@ -10,7 +14,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         public void MergeTest()
         {
             // Arrange
-            var cache = new List<Changelog>()
+            var cache = new List<Changelog>
             {
                 new()
                 {

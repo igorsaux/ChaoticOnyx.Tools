@@ -22,9 +22,9 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         };
 
         private readonly IDeserializer _deserializer;
+        private readonly bool          _doConvert;
         private readonly ILogger?      _logger;
         private readonly ISerializer   _serializer;
-        private readonly bool          _doConvert;
 
         public CacheParser(IDeserializer deserializer, ISerializer serializer, bool doConvert = false)
         {

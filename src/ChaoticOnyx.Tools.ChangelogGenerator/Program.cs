@@ -65,8 +65,12 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
 
             ParseCache();
             UpdateCache();
-            SaveCache();
-            DeleteChangelogs();
+            
+            if (!Options.DryRun)
+            {
+                SaveCache();
+                DeleteChangelogs();
+            }
 
             return 0;
         }
@@ -86,10 +90,13 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         /// </summary>
         private static void UpdateCache()
         {
-            List<Changelog> newCache = new(s_cache.Count);
+            var             totalChangelogs = s_cache.Count;
+            List<Changelog> newCache        = new(s_cache.Count);
             newCache.AddRange(s_cache);
             newCache.AddRange(s_changelog.Values);
             s_cache = CacheMerger.Merge(newCache);
+            
+            Logger.LogInformation($"{ChangelogGeneratorResources.CHANGELOGS_DELTA} {s_cache.Count - totalChangelogs}");
         }
 
         private static void GenerateHTML()
