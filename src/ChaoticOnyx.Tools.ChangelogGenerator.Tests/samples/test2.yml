@@ -1,0 +1,8 @@
+author: "UnknownSecond"
+date: "2018-02-28"
+deleteAfter: True
+changes:
+  - prefix: rscadd
+    message: "Added features 2"
+  - prefix: rscdel
+    message: "Deleted bugs 2"

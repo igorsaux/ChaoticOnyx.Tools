@@ -1,0 +1,116 @@
+﻿#region
+
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Microsoft.Extensions.Logging;
+using YamlDotNet.Core;
+using YamlDotNet.Serialization;
+
+#endregion
+
+namespace ChaoticOnyx.Tools.ChangelogGenerator
+{
+    public class ChangelogParser
+    {
+        private readonly IDeserializer _deserializer;
+        private readonly ILogger?      _logger;
+        private readonly ISerializer   _serializer;
+
+        public ChangelogParser(IDeserializer deserializer, ISerializer serializer)
+        {
+            _deserializer = deserializer;
+            _serializer   = serializer;
+        }
+
+        public ChangelogParser(IDeserializer deserializer, ISerializer serializer, ILogger logger)
+            : this(deserializer, serializer)
+        {
+            _logger = logger;
+        }
+
+        /// <summary>
+        ///     Парсинг .yml файлов в папке. Файлы которые начинаются с точки - не парсятся.
+        /// </summary>
+        /// <param name="fullPath"></param>
+        /// <returns></returns>
+        /// <exception cref="YamlException"></exception>
+        public Dictionary<string, Changelog> ParseFolder(string fullPath)
+        {
+            _logger?.LogInformation($"{ChangelogGeneratorResources.SEARCHING_CHANGELOGS_IN} {fullPath}");
+            
+            var files  = from f in Directory.GetFiles(fullPath)
+                                         where Path.GetExtension(f) == ".yml" &&
+                                               Path.GetFileName(f)[0] != '.'
+                                         select f;
+            
+            Dictionary<string, Changelog> result = new();
+
+            foreach (var file in files)
+            {
+                try
+                {
+                    var c = ParseFile(file);
+
+                    if (c.Date == default)
+                    {
+                        c.Date = DateTime.Now.Date;
+                    }
+                    
+                    result.Add(file, c);
+                }
+                catch (YamlException e)
+                {
+                    _logger?.LogError($"{ChangelogGeneratorResources.PARSING_ERROR} {Path.GetFileName(file)}\n{e.InnerException?.Message}");
+                    _logger?.LogTrace(e, e.Message);
+
+                    throw;
+                }
+            }
+            
+            return result;
+        }
+
+        /// <summary>
+        ///     Парсинг файла.
+        /// </summary>
+        /// <param name="fullPath">Абсолютный путь до файла.</param>
+        /// <returns></returns>
+        /// <exception cref="YamlException"></exception>
+        public Changelog ParseFile(string fullPath)
+        {
+            _logger?.LogInformation($"{ChangelogGeneratorResources.PARSING_FILE} {Path.GetFileName(fullPath)}");
+            
+            return ParseText(File.ReadAllText(fullPath));
+        }
+
+        /// <summary>
+        ///     Парсинг текста.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        /// <exception cref="YamlException"></exception>
+        public Changelog ParseText(string text)
+        {
+            return _deserializer.Deserialize<Changelog>(text);
+        }
+
+        /// <summary>
+        ///     Сохранить чейнджлоги в файлы.
+        /// </summary>
+        /// <param name="fileToChangelog">Словарь путь-чейнджлог.</param>
+        public void SaveChangelogs(Dictionary<string, Changelog> fileToChangelog)
+        {
+            _logger?.LogInformation($"{ChangelogGeneratorResources.SAVING_CHANGELOGS}");
+            
+            foreach (var (file, changelog) in fileToChangelog)
+            {
+                var result = _serializer.Serialize(changelog);
+                
+                File.WriteAllText(file, result);
+                _logger?.LogInformation($"{ChangelogGeneratorResources.CHANGELOG_SAVED} {file}");
+            }
+        }
+    }
+}

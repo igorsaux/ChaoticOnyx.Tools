@@ -1,0 +1,14 @@
+- author: "Unknown"
+  date: "2018-02-27"
+  changes:
+  - prefix: rscadd
+    message: "Added features"
+  - prefix: rscdel
+    message: "Deleted bugs"
+- author: "UnknownSecond"
+  date: "2018-02-28"
+  changes:
+  - prefix: rscadd
+    message: "Added features 2"
+  - prefix: rscdel
+    message: "Deleted bugs 2"
