@@ -26,4 +26,10 @@
         <DependentUpon>ChangelogGeneratorResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="templates/**">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
 </Project>

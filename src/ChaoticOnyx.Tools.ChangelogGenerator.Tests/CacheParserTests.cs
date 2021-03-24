@@ -12,7 +12,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
     public class CacheParserTests : IDisposable
     {
         private readonly string _cacheFile         = ".all_changelog.yml";
-        private readonly string _changelogsFolder  = TestingProvider.ChangelogsFolder;
+        private readonly string _changelogsFolder  = TestingProvider.SamplesFolder;
         private readonly string _oldCacheFile      = ".old_changelog.yml";
         private readonly string _unknownFormatFile = ".unknown.yml";
 

@@ -13,7 +13,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
 {
     public class ChangelogParsingTests : IDisposable
     {
-        private readonly string _changelogsFolder = TestingProvider.ChangelogsFolder;
+        private readonly string _changelogsFolder = TestingProvider.SamplesFolder;
         private readonly string _tempFile         = "out1.yml";
 
         [Fact]
