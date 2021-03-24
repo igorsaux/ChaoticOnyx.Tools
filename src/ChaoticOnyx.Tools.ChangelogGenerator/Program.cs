@@ -118,7 +118,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         /// <exception cref="YamlException">Ошибка парсинга.</exception>
         private static void ParseCache()
         {
-            var parser = new CacheParser(s_deserializer, s_serializer, Options.AutoConvert, Logger);
+            var parser = new CacheParser(s_deserializer, s_serializer, Logger, Options.AutoConvert);
             s_cache = parser.ParseCacheFile(Options.ChangelogCache);
         }
 
@@ -127,7 +127,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         /// </summary>
         public static void ParseChangelogs()
         {
-            ChangelogParser parser = new(s_deserializer, s_serializer, Logger);
+            ChangelogParser parser = new(s_deserializer, s_serializer, Logger, Options.AutoConvert);
             s_changelog = parser.ParseFolder(Options.ChangelogsFolder);
         }
 
@@ -148,7 +148,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
                     continue;
                 }
 
-                Logger.LogDebug($"{ChangelogGeneratorResources.DELETING_FILE} {Path.GetFileName(path)}");
+                Logger.LogInformation($"{ChangelogGeneratorResources.DELETING_FILE} {Path.GetFileName(path)}");
                 File.Delete(path);
             }
         }

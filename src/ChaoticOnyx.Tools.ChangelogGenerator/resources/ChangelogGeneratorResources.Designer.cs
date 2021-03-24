@@ -61,20 +61,11 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cache converted!.
+        ///   Looks up a localized string similar to File has non convertable format.
         /// </summary>
-        internal static string CACHE_CONVERTED {
+        internal static string CANT_CONVERT_FILE {
             get {
-                return ResourceManager.GetString("CACHE_CONVERTED", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cache has non convertable format.
-        /// </summary>
-        internal static string CANT_CONVERT_CACHE {
-            get {
-                return ResourceManager.GetString("CANT_CONVERT_CACHE", resourceCulture);
+                return ResourceManager.GetString("CANT_CONVERT_FILE", resourceCulture);
             }
         }
         
@@ -124,20 +115,20 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File converted!.
+        /// </summary>
+        internal static string FILE_CONVERTED {
+            get {
+                return ResourceManager.GetString("FILE_CONVERTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File does not exist.
         /// </summary>
         internal static string FILE_DOES_NOT_EXIST {
             get {
                 return ResourceManager.GetString("FILE_DOES_NOT_EXIST", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Folder does not exist.
-        /// </summary>
-        internal static string FOLDER_DOES_NOT_EXISTS {
-            get {
-                return ResourceManager.GetString("FOLDER_DOES_NOT_EXISTS", resourceCulture);
             }
         }
         
@@ -160,7 +151,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parsing error in.
+        ///   Looks up a localized string similar to Parsing error:.
         /// </summary>
         internal static string PARSING_ERROR {
             get {
@@ -205,7 +196,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cache has invalid format, trying to convert it.
+        ///   Looks up a localized string similar to File has invalid format, trying to convert it.
         /// </summary>
         internal static string TRYING_TO_CONVERT {
             get {

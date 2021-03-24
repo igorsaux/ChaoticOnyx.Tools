@@ -2,14 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using Xunit;
 using YamlDotNet.Core;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.Converters;
-using YamlDotNet.Serialization.NamingConventions;
 
 #endregion
 
