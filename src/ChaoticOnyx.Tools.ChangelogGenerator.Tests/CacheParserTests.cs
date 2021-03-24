@@ -31,7 +31,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
             formats.AddRange(CultureInfo.CurrentCulture.DateTimeFormat.GetAllDateTimePatterns());
             formats.AddRange(CultureInfo.InvariantCulture.DateTimeFormat.GetAllDateTimePatterns());
 
-            _dateTimeConverter = new(provider: CultureInfo.InvariantCulture, formats: formats.ToArray());
+            _dateTimeConverter = new(DateTimeKind.Local, CultureInfo.InvariantCulture, formats.ToArray());
             
             _deserializer = new DeserializerBuilder().WithTypeConverter(_dateTimeConverter)
                                                      .WithNamingConvention(CamelCaseNamingConvention.Instance)

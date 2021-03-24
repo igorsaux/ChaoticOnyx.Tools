@@ -186,7 +186,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             List<string> formats = new();
             formats.AddRange(CultureInfo.InvariantCulture.DateTimeFormat.GetAllDateTimePatterns());
             formats.AddRange(new CultureInfo(Options.DateCulture).DateTimeFormat.GetAllDateTimePatterns());
-            s_dateTimeConverter = new(provider: new CultureInfo(Options.DateCulture), formats: formats.ToArray());
+            s_dateTimeConverter = new(DateTimeKind.Local, new CultureInfo(Options.DateCulture), formats.ToArray());
 
             s_deserializer = new DeserializerBuilder().WithTypeConverter(s_dateTimeConverter)
                                                       .WithNamingConvention(CamelCaseNamingConvention.Instance)
