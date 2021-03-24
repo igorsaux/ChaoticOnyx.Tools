@@ -51,11 +51,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             {
                 throw new DirectoryNotFoundException(ChangelogsFolder);
             }
-
-            if (!File.Exists(ChangelogCache))
-            {
-                throw new FileNotFoundException(ChangelogCache);
-            }
         }
     }
 }

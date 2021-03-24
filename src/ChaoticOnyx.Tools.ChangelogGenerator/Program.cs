@@ -63,9 +63,17 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
                 return 0;
             }
 
-            ParseCache();
-            UpdateCache();
+            try
+            {
+                ParseCache();
+            }
+            catch (FileNotFoundException)
+            {
+                s_cache = new();
+            }
             
+            UpdateCache();
+
             if (!Options.DryRun)
             {
                 SaveCache();
@@ -167,12 +175,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             try
             {
                 Options.Validate();
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                Logger.LogError($"{ChangelogGeneratorResources.FOLDER_DOES_NOT_EXISTS} {e.Message}");
-
-                return false;
             }
             catch (FileNotFoundException e)
             {
