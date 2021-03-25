@@ -47,8 +47,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
 </html>";
 
             var builder = new HtmlChangelogBuilder(
-                File.ReadAllText($"{TestingProvider.SamplesFolder}test_template.tmpl"), CultureInfo.InvariantCulture,
-                null, "dd.MM.yyy");
+                File.ReadAllText($"{TestingProvider.SamplesFolder}test_template.tmpl"));
 
             List<Changelog> changelogs = new()
             {

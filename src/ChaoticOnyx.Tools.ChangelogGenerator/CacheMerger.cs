@@ -12,8 +12,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         /// <summary>
         ///     Объединение чейнджлогов совпадающих по датам и авторам.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
         /// <returns></returns>
         public static List<Changelog> Merge(List<Changelog> changes)
         {

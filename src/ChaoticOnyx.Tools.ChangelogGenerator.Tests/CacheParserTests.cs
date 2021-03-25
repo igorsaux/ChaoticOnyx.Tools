@@ -21,7 +21,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         {
             // Arrange
             var file   = $"{_changelogsFolder}{_cacheFile}";
-            var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer);
+            var parser = new CacheParser(TestingProvider.Deserializer);
 
             // Act
             var result = parser.ParseCacheFile(file);
@@ -47,7 +47,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         {
             // Arrange
             var file   = $"{_changelogsFolder}{_oldCacheFile}";
-            var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer);
+            var parser = new CacheParser(TestingProvider.Deserializer);
 
             // Act
             void Code() => parser.ParseCacheFile(file);
@@ -61,7 +61,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         {
             // Arrange
             var file   = $"{_changelogsFolder}{_oldCacheFile}";
-            var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer, true);
+            var parser = new CacheParser(TestingProvider.Deserializer, true);
 
             // Act
             var result = parser.ParseCacheFile(file);
@@ -75,7 +75,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         {
             // Arrange
             var file   = $"{_changelogsFolder}{_unknownFormatFile}";
-            var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer, true);
+            var parser = new CacheParser(TestingProvider.Deserializer, true);
             File.WriteAllText(file, "hello, world!");
 
             // Act

@@ -13,15 +13,21 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         public string Prefix
         {
             get;
-            set;
+            init;
         }
 
         public string Message
         {
             get;
-            set;
+            init;
         }
 
+        public Change()
+        {
+            Prefix  = string.Empty;
+            Message = string.Empty;
+        }
+        
         public static bool operator ==(Change a, Change b)
         {
             return a.Equals(b);

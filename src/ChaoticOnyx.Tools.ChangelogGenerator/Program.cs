@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -15,16 +16,23 @@ using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.Converters;
 using YamlDotNet.Serialization.NamingConventions;
 
-#pragma warning disable 8618
-
 #endregion
 
 namespace ChaoticOnyx.Tools.ChangelogGenerator
 {
     public static class Program
     {
-        public static ILogger Logger;
-        public static Options Options;
+        public static ILogger Logger
+        {
+            get;
+            set;
+        }
+        
+        public static Options Options
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         ///     Путь - Класс.
@@ -132,9 +140,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         {
             Logger.LogInformation($"{ChangelogGeneratorResources.GENERATING_HTML}");
 
-            var builder = new HtmlChangelogBuilder(File.ReadAllText(Options.Template),
-                                                   new CultureInfo(Options.DateCulture), Logger,
-                                                   Options.ChangelogDateFormat);
+            var builder = new HtmlChangelogBuilder(File.ReadAllText(Options.Template));
 
             Logger.LogInformation($"{ChangelogGeneratorResources.SAVING_HTML}");
             File.WriteAllText(Options.OutputChangelog, builder.Build(s_cache.OrderByDescending(e => e.Date)));
@@ -146,7 +152,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         /// <exception cref="YamlException">Ошибка парсинга.</exception>
         private static void ParseCache()
         {
-            var parser = new CacheParser(s_deserializer, s_serializer, Logger, Options.AutoConvert);
+            var parser = new CacheParser(s_deserializer, Logger, Options.AutoConvert);
             s_cache = parser.ParseCacheFile(Options.ChangelogCache);
         }
 

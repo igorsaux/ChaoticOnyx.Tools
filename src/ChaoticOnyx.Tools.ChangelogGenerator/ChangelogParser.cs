@@ -133,11 +133,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
                 }
             }
 
-            if (result.Date == default)
-            {
-                result.Date = DateTime.Now.Date;
-            }
-
             return result;
         }
 

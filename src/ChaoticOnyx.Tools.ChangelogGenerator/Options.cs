@@ -29,12 +29,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             set;
         } = string.Empty;
 
-        public string ChangelogDateFormat
-        {
-            get;
-            set;
-        } = "G";
-
         public bool DryRun
         {
             get;
@@ -69,7 +63,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         {
             get;
             set;
-        }
+        } = Array.Empty<string>();
 
         public bool CiMode
         {
