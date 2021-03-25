@@ -28,10 +28,10 @@
         <value>Searching changelogs in</value>
     </data>
     <data name="PARSING_FILE" xml:space="preserve">
-        <value>Parsing file</value>
+        <value>Parsing changelog file</value>
     </data>
     <data name="PARSING_ERROR" xml:space="preserve">
-        <value>Parsing error in</value>
+        <value>Parsing error:</value>
     </data>
     <data name="DELETING_FILE" xml:space="preserve">
         <value>Deleting file</value>
@@ -43,13 +43,13 @@
         <value>Parsing cache file</value>
     </data>
     <data name="TRYING_TO_CONVERT" xml:space="preserve">
-        <value>Cache has invalid format, trying to convert it</value>
+        <value>File has invalid format, trying to convert it</value>
     </data>
-    <data name="CANT_CONVERT_CACHE" xml:space="preserve">
-        <value>Cache has non convertable format</value>
+    <data name="CANT_CONVERT_FILE" xml:space="preserve">
+        <value>File has non convertable format</value>
     </data>
-    <data name="CACHE_CONVERTED" xml:space="preserve">
-        <value>Cache converted!</value>
+    <data name="FILE_CONVERTED" xml:space="preserve">
+        <value>File converted!</value>
     </data>
     <data name="SAVING_CACHE" xml:space="preserve">
         <value>Saving cache</value>
@@ -63,7 +63,16 @@
     <data name="FILE_DOES_NOT_EXIST" xml:space="preserve">
         <value>File does not exist</value>
     </data>
-    <data name="FOLDER_DOES_NOT_EXISTS" xml:space="preserve">
+    <data name="CHANGELOGS_DELTA" xml:space="preserve">
+        <value>Changelogs delta:</value>
+    </data>
+    <data name="FOLDER_DOES_NOT_EXIST" xml:space="preserve">
         <value>Folder does not exist</value>
+    </data>
+    <data name="GENERATING_HTML" xml:space="preserve">
+        <value>Generating HTML</value>
+    </data>
+    <data name="SAVING_HTML" xml:space="preserve">
+        <value>Saving HTML</value>
     </data>
 </root>

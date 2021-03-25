@@ -14,18 +14,28 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
 {
     public class ChangelogParser
     {
+        /// <summary>
+        ///     Список конвертеров чейнджлогов.
+        /// </summary>
+        private static readonly Func<IDeserializer, string, Changelog>[] s_converters =
+        {
+            ChangelogFormatConverter.VgToChaoticOnyx
+        };
+
         private readonly IDeserializer _deserializer;
+        private readonly bool          _doConvert;
         private readonly ILogger?      _logger;
         private readonly ISerializer   _serializer;
 
-        public ChangelogParser(IDeserializer deserializer, ISerializer serializer)
+        public ChangelogParser(IDeserializer deserializer, ISerializer serializer, bool doConvert = false)
         {
             _deserializer = deserializer;
             _serializer   = serializer;
+            _doConvert    = doConvert;
         }
 
-        public ChangelogParser(IDeserializer deserializer, ISerializer serializer, ILogger logger)
-            : this(deserializer, serializer)
+        public ChangelogParser(IDeserializer deserializer, ISerializer serializer, ILogger logger, bool doConvert = false)
+            : this(deserializer, serializer, doConvert)
         {
             _logger = logger;
         }
@@ -93,7 +103,42 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         /// <exception cref="YamlException"></exception>
         public Changelog ParseText(string text)
         {
-            return _deserializer.Deserialize<Changelog>(text);
+            Changelog? result = null;
+            
+            try
+            {
+                result = _deserializer.Deserialize<Changelog>(text);
+            }
+            catch (YamlException e)
+            {
+                _logger?.LogError($"{ChangelogGeneratorResources.PARSING_ERROR} {e.InnerException?.Message ?? e.Message}");
+                _logger?.LogTrace(e, e.Message);
+                
+                if (!_doConvert)
+                {
+                    throw;
+                }
+                
+                foreach (var converter in s_converters)
+                {
+                    _logger?.LogWarning($"{ChangelogGeneratorResources.TRYING_TO_CONVERT} {{{converter.Method.Name}}}");
+                    
+                    try
+                    {
+                        result = converter.Invoke(_deserializer, text);
+                        _logger?.LogInformation($"{ChangelogGeneratorResources.FILE_CONVERTED}");
+
+                        return result;
+                    }
+                    catch (YamlException) { }
+                }
+                
+                _logger?.LogError($"{ChangelogGeneratorResources.CANT_CONVERT_FILE}");
+
+                throw;
+            }
+
+            return result;
         }
 
         /// <summary>

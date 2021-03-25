@@ -22,9 +22,9 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         };
 
         private readonly IDeserializer _deserializer;
+        private readonly bool          _doConvert;
         private readonly ILogger?      _logger;
         private readonly ISerializer   _serializer;
-        private readonly bool          _doConvert;
 
         public CacheParser(IDeserializer deserializer, ISerializer serializer, bool doConvert = false)
         {
@@ -33,14 +33,14 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             _doConvert    = doConvert;
         }
 
-        public CacheParser(IDeserializer deserializer, ISerializer serializer, bool doConvert, ILogger logger)
+        public CacheParser(IDeserializer deserializer, ISerializer serializer, ILogger logger, bool doConvert = false)
             : this(deserializer, serializer, doConvert)
         {
             _logger = logger;
         }
 
         /// <summary>
-        /// Пасринг кэш файла.
+        ///     Пасринг кэш файла.
         /// </summary>
         /// <param name="fullPath">Путь к файлу кэша.</param>
         /// <returns></returns>
@@ -59,7 +59,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             }
             catch (YamlException e)
             {
-                _logger?.LogError($"{ChangelogGeneratorResources.PARSING_ERROR} {Path.GetFileName(fullPath)}");
+                _logger?.LogError($"{ChangelogGeneratorResources.PARSING_ERROR} {e.InnerException?.Message ?? e.Message}");
                 _logger?.LogTrace(e, e.Message);
 
                 if (!_doConvert)
@@ -74,14 +74,14 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
                     try
                     {
                         result = converter.Invoke(_deserializer, text);
-                        _logger?.LogInformation($"{ChangelogGeneratorResources.CACHE_CONVERTED}");
+                        _logger?.LogInformation($"{ChangelogGeneratorResources.FILE_CONVERTED}");
                         
                         return result;
                     }
                     catch (YamlException) { }
                 }
                 
-                _logger?.LogError($"{ChangelogGeneratorResources.CANT_CONVERT_CACHE}");
+                _logger?.LogError($"{ChangelogGeneratorResources.CANT_CONVERT_FILE}");
 
                 throw;
             }

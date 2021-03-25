@@ -2,14 +2,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using Xunit;
 using YamlDotNet.Core;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.Converters;
-using YamlDotNet.Serialization.NamingConventions;
 
 #endregion
 
@@ -17,35 +13,14 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
 {
     public class ChangelogParsingTests : IDisposable
     {
-        private readonly string            _changelogsFolder = Path.GetFullPath("./samples/");
-        private readonly string            _tempFile         = "out1.yml";
-        private readonly DateTimeConverter _dateTimeConverter;
-        private readonly IDeserializer     _deserializer;
-        private readonly ISerializer       _serializer;
-
-        public ChangelogParsingTests()
-        {
-            List<string> formats = new();
-            
-            formats.AddRange(CultureInfo.CurrentCulture.DateTimeFormat.GetAllDateTimePatterns());
-            formats.AddRange(CultureInfo.InvariantCulture.DateTimeFormat.GetAllDateTimePatterns());
-
-            _dateTimeConverter = new (provider: CultureInfo.InvariantCulture, formats: formats.ToArray());
-            
-            _deserializer = new DeserializerBuilder().WithTypeConverter(_dateTimeConverter)
-                                                     .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                                                     .Build();
-
-            _serializer = new SerializerBuilder().WithTypeConverter(_dateTimeConverter)
-                                                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                                                 .Build();
-        }
+        private readonly string _changelogsFolder = TestingProvider.SamplesFolder;
+        private readonly string _tempFile         = "out1.yml";
 
         [Fact]
         public void ParsingTextTest()
         {
             // Arrange
-            var parser = new ChangelogParser(_deserializer, _serializer);
+            var parser = new ChangelogParser(TestingProvider.Deserializer, TestingProvider.Serializer);
             string valid = @"
 author: Unknown
 date: ""2018-02-27""
@@ -76,7 +51,7 @@ changes:
         public void ParsingFileTest()
         {
             // Arrange
-            var parser = new ChangelogParser(_deserializer, _serializer);
+            var parser = new ChangelogParser(TestingProvider.Deserializer, TestingProvider.Serializer);
             var file   = Path.GetFullPath("test.yml", _changelogsFolder);
             
             // Act
@@ -98,7 +73,7 @@ changes:
         public void ParsingFolderTest()
         {
             // Arrange
-            var parser = new ChangelogParser(_deserializer, _serializer);
+            var parser = new ChangelogParser(TestingProvider.Deserializer, TestingProvider.Serializer);
             
             // Act
             var result = parser.ParseFolder(_changelogsFolder);
@@ -113,7 +88,8 @@ changes:
             // Arrange
             var file = $"{_changelogsFolder}{_tempFile}";
 
-            var parser = new ChangelogParser(_deserializer, _serializer);
+            var parser = new ChangelogParser(TestingProvider.Deserializer, TestingProvider.Serializer);
+
             var changelogs = new Dictionary<string, Changelog>
             {
                 {
@@ -121,7 +97,7 @@ changes:
                     {
                         Author      = "Unknown",
                         DeleteAfter = false,
-                        Date        = DateTime.Now,
+                        Date        = new DateTime(2021, 04, 24).AddHours(1),
                         Changes = new()
                         {
                             new()
@@ -155,7 +131,7 @@ changes:
             // Arrange
             var file   = $"{_changelogsFolder}{_tempFile}";
             File.WriteAllText(file, "hello, world!");
-            var parser = new ChangelogParser(_deserializer, _serializer);
+            var parser = new ChangelogParser(TestingProvider.Deserializer, TestingProvider.Serializer);
 
             // Act
             void Code() => parser.ParseFolder(_changelogsFolder);

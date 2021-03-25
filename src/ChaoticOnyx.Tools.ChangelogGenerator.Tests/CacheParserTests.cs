@@ -1,49 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
+﻿#region
+
+using System;
 using System.IO;
 using Xunit;
 using YamlDotNet.Core;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.Converters;
-using YamlDotNet.Serialization.NamingConventions;
+
+#endregion
 
 namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
 {
     public class CacheParserTests : IDisposable
     {
-        private readonly string            _changelogsFolder  = Path.GetFullPath("./samples/");
-        private readonly string            _cacheFile         = ".all_changelog.yml";
-        private readonly string            _oldCacheFile      = ".old_changelog.yml";
-        private readonly string            _unknownFormatFile = ".unknown.yml";
-        private readonly DateTimeConverter _dateTimeConverter;
-        private readonly IDeserializer     _deserializer;
-        private readonly ISerializer       _serializer;
-        
-        public CacheParserTests()
-        {
-            List<string> formats = new();
-            
-            formats.AddRange(CultureInfo.CurrentCulture.DateTimeFormat.GetAllDateTimePatterns());
-            formats.AddRange(CultureInfo.InvariantCulture.DateTimeFormat.GetAllDateTimePatterns());
+        private readonly string _cacheFile         = ".all_changelog.yml";
+        private readonly string _changelogsFolder  = TestingProvider.SamplesFolder;
+        private readonly string _oldCacheFile      = ".old_changelog.yml";
+        private readonly string _unknownFormatFile = ".unknown.yml";
 
-            _dateTimeConverter = new(provider: CultureInfo.InvariantCulture, formats: formats.ToArray());
-            
-            _deserializer = new DeserializerBuilder().WithTypeConverter(_dateTimeConverter)
-                                                     .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                                                     .Build();
-
-            _serializer = new SerializerBuilder().WithTypeConverter(_dateTimeConverter)
-                                                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
-                                                 .Build();
-        }
-        
         [Fact]
         public void CorrectParsingTest()
         {
             // Arrange
             var file   = $"{_changelogsFolder}{_cacheFile}";
-            var parser = new CacheParser(_deserializer, _serializer);
+            var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer);
 
             // Act
             var result = parser.ParseCacheFile(file);
@@ -63,7 +41,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         {
             // Arrange
             var file   = $"{_changelogsFolder}{_oldCacheFile}";
-            var parser = new CacheParser(_deserializer, _serializer);
+            var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer);
             
             // Act
             void Code() => parser.ParseCacheFile(file);
@@ -77,7 +55,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         {
             // Arrange
             var file   = $"{_changelogsFolder}{_oldCacheFile}";
-            var parser = new CacheParser(_deserializer, _serializer, true);
+            var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer, true);
             
             // Act
             var result = parser.ParseCacheFile(file);
@@ -91,7 +69,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         {
             // Arrange
             var file   = $"{_changelogsFolder}{_unknownFormatFile}";
-            var parser = new CacheParser(_deserializer, _serializer, true);
+            var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer, true);
             
             File.WriteAllText(file, "hello, world!");
             

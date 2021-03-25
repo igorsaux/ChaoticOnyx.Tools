@@ -21,10 +21,10 @@
         <value>Поиск чейнджлогов в</value>
     </data>
     <data name="PARSING_FILE" xml:space="preserve">
-        <value>Парсинг файла</value>
+        <value>Парсинг чейнджлог файла</value>
     </data>
     <data name="PARSING_ERROR" xml:space="preserve">
-        <value>Ошибка при парсинге в</value>
+        <value>Ошибка при парсинге:</value>
     </data>
     <data name="DELETING_FILE" xml:space="preserve">
         <value>Удаление файла</value>
@@ -36,13 +36,13 @@
         <value>Парсинг кэш файла</value>
     </data>
     <data name="TRYING_TO_CONVERT" xml:space="preserve">
-        <value>Кэш имеет неправильный формат, попытка конвертировать</value>
+        <value>Файл имеет неправильный формат, попытка конвертировать</value>
     </data>
-    <data name="CANT_CONVERT_CACHE" xml:space="preserve">
-        <value>Кэш имеет неконвертируемый формат</value>
+    <data name="CANT_CONVERT_FILE" xml:space="preserve">
+        <value>Файл имеет неконвертируемый формат</value>
     </data>
-    <data name="CACHE_CONVERTED" xml:space="preserve">
-        <value>Кэш конвертирован!</value>
+    <data name="FILE_CONVERTED" xml:space="preserve">
+        <value>Файл конвертирован!</value>
     </data>
     <data name="SAVING_CACHE" xml:space="preserve">
         <value>Сохранение кэша</value>
@@ -56,7 +56,16 @@
     <data name="FILE_DOES_NOT_EXIST" xml:space="preserve">
         <value>Файл не существует</value>
     </data>
-    <data name="FOLDER_DOES_NOT_EXISTS" xml:space="preserve">
+    <data name="CHANGELOGS_DELTA" xml:space="preserve">
+        <value>Дельта чейнджлогов:</value>
+    </data>
+    <data name="FOLDER_DOES_NOT_EXIST" xml:space="preserve">
         <value>Директория не существует</value>
+    </data>
+    <data name="GENERATING_HTML" xml:space="preserve">
+        <value>Генерация HTML</value>
+    </data>
+    <data name="SAVING_HTML" xml:space="preserve">
+        <value>Сохранение HTML</value>
     </data>
 </root>

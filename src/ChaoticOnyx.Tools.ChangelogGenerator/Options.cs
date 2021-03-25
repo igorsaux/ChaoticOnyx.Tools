@@ -1,8 +1,11 @@
 ﻿#region
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
+using Microsoft.Extensions.Logging;
 
 #endregion
 
@@ -28,6 +31,12 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             set;
         } = string.Empty;
 
+        public string ChangelogDateFormat
+        {
+            get;
+            set;
+        } = "G";
+        
         public bool DryRun
         {
             get;
@@ -40,22 +49,47 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             set;
         } = true;
 
+        public bool GenerateHtml
+        {
+            get;
+            set;
+        } = true;
+
         public string DateCulture
         {
             get;
             set;
         } = CultureInfo.CurrentCulture.ToString();
 
-        public void Validate()
+        public string Template
         {
+            get;
+            set;
+        } = string.Empty;
+
+        public void Validate(ILogger? logger)
+        {
+            var fail = false;
+            ChangelogCache   = Path.GetFullPath(ChangelogCache, AppContext.BaseDirectory);
+            ChangelogsFolder = Path.GetFullPath(ChangelogsFolder, AppContext.BaseDirectory);
+            OutputChangelog  = Path.GetFullPath(OutputChangelog, AppContext.BaseDirectory);
+            Template         = Path.GetFullPath(Template, AppContext.BaseDirectory);
+            
             if (!Directory.Exists(ChangelogsFolder))
             {
-                throw new DirectoryNotFoundException(ChangelogsFolder);
+                logger?.LogError($"{ChangelogGeneratorResources.FILE_DOES_NOT_EXIST} {ChangelogsFolder}");
+                fail = true;
             }
 
-            if (!File.Exists(ChangelogCache))
+            if (GenerateHtml && string.IsNullOrEmpty(Template))
             {
-                throw new FileNotFoundException(ChangelogCache);
+                logger?.LogError($"{ChangelogGeneratorResources.FILE_DOES_NOT_EXIST} {Template}");
+                fail = true;
+            }
+
+            if (fail)
+            {
+                throw new InvalidOperationException();
             }
         }
     }

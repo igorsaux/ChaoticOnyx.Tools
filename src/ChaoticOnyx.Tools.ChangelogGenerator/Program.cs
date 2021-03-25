@@ -47,8 +47,15 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
 
         public static int Main(string[] args)
         {
-            if (!Configure(args))
+            try
             {
+                Configure(args);
+            }
+            catch (Exception e)
+            {
+                Logger.LogError(e.Message);
+                Logger.LogTrace(e, e.Message);
+                
                 return -1;
             }
             
@@ -63,10 +70,27 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
                 return 0;
             }
 
-            ParseCache();
+            try
+            {
+                ParseCache();
+            }
+            catch (FileNotFoundException)
+            {
+                s_cache = new();
+            }
+            
             UpdateCache();
-            SaveCache();
-            DeleteChangelogs();
+
+            if (!Options.DryRun)
+            {
+                SaveCache();
+                DeleteChangelogs();
+            }
+
+            if (Options.GenerateHtml)
+            {
+                GenerateHTML();
+            }
 
             return 0;
         }
@@ -86,15 +110,25 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         /// </summary>
         private static void UpdateCache()
         {
-            List<Changelog> newCache = new(s_cache.Count);
+            var             totalChangelogs = s_cache.Count;
+            List<Changelog> newCache        = new(s_cache.Count);
             newCache.AddRange(s_cache);
             newCache.AddRange(s_changelog.Values);
             s_cache = CacheMerger.Merge(newCache);
+            
+            Logger.LogInformation($"{ChangelogGeneratorResources.CHANGELOGS_DELTA} {s_cache.Count - totalChangelogs}");
         }
 
+        /// <summary>
+        ///     Генерация HTML чейнджлога.
+        /// </summary>
         private static void GenerateHTML()
         {
-            throw new NotImplementedException();
+            Logger.LogInformation($"{ChangelogGeneratorResources.GENERATING_HTML}");
+            var builder = new HtmlChangelogBuilder(File.ReadAllText(Options.Template), new CultureInfo(Options.DateCulture), Logger, Options.ChangelogDateFormat);
+            
+            Logger.LogInformation($"{ChangelogGeneratorResources.SAVING_HTML}");
+            File.WriteAllText(Options.OutputChangelog, builder.Build(s_cache.OrderByDescending(e => e.Date)));
         }
 
         /// <summary>
@@ -103,7 +137,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         /// <exception cref="YamlException">Ошибка парсинга.</exception>
         private static void ParseCache()
         {
-            var parser = new CacheParser(s_deserializer, s_serializer, Options.AutoConvert, Logger);
+            var parser = new CacheParser(s_deserializer, s_serializer, Logger, Options.AutoConvert);
             s_cache = parser.ParseCacheFile(Options.ChangelogCache);
         }
 
@@ -112,7 +146,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         /// </summary>
         public static void ParseChangelogs()
         {
-            ChangelogParser parser = new(s_deserializer, s_serializer, Logger);
+            ChangelogParser parser = new(s_deserializer, s_serializer, Logger, Options.AutoConvert);
             s_changelog = parser.ParseFolder(Options.ChangelogsFolder);
         }
 
@@ -133,12 +167,12 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
                     continue;
                 }
 
-                Logger.LogDebug($"{ChangelogGeneratorResources.DELETING_FILE} {Path.GetFileName(path)}");
+                Logger.LogInformation($"{ChangelogGeneratorResources.DELETING_FILE} {Path.GetFileName(path)}");
                 File.Delete(path);
             }
         }
 
-        private static bool Configure(string[] args)
+        private static void Configure(string[] args)
         {
             IHost host = Host.CreateDefaultBuilder(args)
                              .Build();
@@ -152,32 +186,13 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
 
             configuration.GetSection("Options")
                          .Bind(Options);
-
-            Options.ChangelogCache   = Path.GetFullPath(Options.ChangelogCache, AppContext.BaseDirectory);
-            Options.ChangelogsFolder = Path.GetFullPath(Options.ChangelogsFolder, AppContext.BaseDirectory);
-            Options.OutputChangelog  = Path.GetFullPath(Options.OutputChangelog, AppContext.BaseDirectory);
             
-            try
-            {
-                Options.Validate();
-            }
-            catch (DirectoryNotFoundException e)
-            {
-                Logger.LogError($"{ChangelogGeneratorResources.FOLDER_DOES_NOT_EXISTS} {e.Message}");
+            Options.Validate(Logger);
 
-                return false;
-            }
-            catch (FileNotFoundException e)
-            {
-                Logger.LogError($"{ChangelogGeneratorResources.FILE_DOES_NOT_EXIST} {e.Message}");
-
-                return false;
-            }
-            
             List<string> formats = new();
             formats.AddRange(CultureInfo.InvariantCulture.DateTimeFormat.GetAllDateTimePatterns());
             formats.AddRange(new CultureInfo(Options.DateCulture).DateTimeFormat.GetAllDateTimePatterns());
-            s_dateTimeConverter = new(provider: new CultureInfo(Options.DateCulture), formats: formats.ToArray());
+            s_dateTimeConverter = new(DateTimeKind.Local, new CultureInfo(Options.DateCulture), formats.ToArray());
 
             s_deserializer = new DeserializerBuilder().WithTypeConverter(s_dateTimeConverter)
                                                       .WithNamingConvention(CamelCaseNamingConvention.Instance)
@@ -186,8 +201,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             s_serializer = new SerializerBuilder().WithTypeConverter(s_dateTimeConverter)
                                                   .WithNamingConvention(CamelCaseNamingConvention.Instance)
                                                   .Build();
-
-            return true;
         }
     }
 }
