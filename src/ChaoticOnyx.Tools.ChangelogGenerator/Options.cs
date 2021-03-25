@@ -76,11 +76,11 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         public void Validate(ILogger? logger)
         {
             var fail = false;
-            ChangelogCache   = Path.GetFullPath(ChangelogCache, AppContext.BaseDirectory);
-            ChangelogsFolder = Path.GetFullPath(ChangelogsFolder, AppContext.BaseDirectory);
-            OutputChangelog  = Path.GetFullPath(OutputChangelog, AppContext.BaseDirectory);
-            Template         = Path.GetFullPath(Template, AppContext.BaseDirectory);
-            
+            ChangelogCache   = Path.GetFullPath(ChangelogCache);
+            ChangelogsFolder = Path.GetFullPath(ChangelogsFolder);
+            OutputChangelog  = Path.GetFullPath(OutputChangelog);
+            Template         = Path.GetFullPath(Template);
+
             if (!Directory.Exists(ChangelogsFolder))
             {
                 logger?.LogError($"{ChangelogGeneratorResources.FILE_DOES_NOT_EXIST} {ChangelogsFolder}");

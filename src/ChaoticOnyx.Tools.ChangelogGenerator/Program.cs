@@ -90,15 +90,15 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             
             UpdateCache();
 
+            if (Options.GenerateHtml)
+            {
+                GenerateHTML();
+            }
+            
             if (!Options.DryRun)
             {
                 SaveCache();
                 DeleteChangelogs();
-            }
-
-            if (Options.GenerateHtml)
-            {
-                GenerateHTML();
             }
 
             return 0;
@@ -198,6 +198,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         private static void Configure(string[] args)
         {
             IHost host = Host.CreateDefaultBuilder(args)
+                             .UseContentRoot(AppContext.BaseDirectory)
                              .Build();
 
             var loggerFactory = host.Services.GetService<ILoggerFactory>();
