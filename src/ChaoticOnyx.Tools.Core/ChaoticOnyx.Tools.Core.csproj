@@ -3,6 +3,15 @@
         <TargetFramework>net5.0</TargetFramework>
         <Nullable>enable</Nullable>
         <OutputType>Exe</OutputType>
+
+        <PackageType>DotnetTool</PackageType>
+        <PackageVersion>1.0</PackageVersion>
+        <PackageId>ChaoticOnyx.Tools</PackageId>
+        <Title>Chaotic Onyx Tools</Title>
+        <Authors>Igor Spichkin</Authors>
+        <PackageTags>byond;dm;chaotic onyx</PackageTags>
+        <RepositoryUrl>https://github.com/igorsaux/chaoticonyx.tools</RepositoryUrl>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <IsPackable>true</IsPackable>
         <PackAsTool>true</PackAsTool>
         <ToolCommandName>chaotic-tools</ToolCommandName>
