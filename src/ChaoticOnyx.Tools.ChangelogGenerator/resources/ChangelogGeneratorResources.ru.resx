@@ -68,4 +68,7 @@
     <data name="SAVING_HTML" xml:space="preserve">
         <value>Сохранение HTML</value>
     </data>
+    <data name="INVALID_PREFIX" xml:space="preserve">
+        <value>Недопустимый префикс:</value>
+    </data>
 </root>

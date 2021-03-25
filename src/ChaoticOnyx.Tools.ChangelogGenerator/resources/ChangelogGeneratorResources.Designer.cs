@@ -151,6 +151,15 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid prefix:.
+        /// </summary>
+        internal static string INVALID_PREFIX {
+            get {
+                return ResourceManager.GetString("INVALID_PREFIX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No new changelogs.
         /// </summary>
         internal static string NO_NEW_CHANGELOGS {

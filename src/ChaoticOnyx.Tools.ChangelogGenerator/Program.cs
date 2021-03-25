@@ -61,7 +61,16 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             
             Logger.LogDebug($"{ChangelogGeneratorResources.DBG_CONFIGURED}");
 
-            ParseChangelogs();
+            try
+            {
+                ParseChangelogs();
+            }
+            catch (InvalidOperationException e)
+            {
+                Logger.LogTrace(e, e.Message);
+
+                return -1;
+            }
 
             if (!s_changelog.Any())
             {
@@ -148,6 +157,20 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         {
             ChangelogParser parser = new(s_deserializer, s_serializer, Logger, Options.AutoConvert);
             s_changelog = parser.ParseFolder(Options.ChangelogsFolder);
+
+            foreach (var (key, value) in s_changelog)
+            {
+                foreach (var change in value.Changes)
+                {
+                    if (!Options.ValidPrefixes.Any(p => p == change.Prefix))
+                    {
+                        var msg = $"{ChangelogGeneratorResources.INVALID_PREFIX} `{change.Prefix}` ({key})";
+                        Logger.LogError(msg);
+
+                        throw new InvalidOperationException(msg);
+                    }
+                }
+            }
         }
 
         /// <summary>

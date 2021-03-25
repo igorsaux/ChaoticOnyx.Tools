@@ -67,6 +67,12 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             set;
         } = string.Empty;
 
+        public string[] ValidPrefixes
+        {
+            get;
+            set;
+        }
+
         public void Validate(ILogger? logger)
         {
             var fail = false;

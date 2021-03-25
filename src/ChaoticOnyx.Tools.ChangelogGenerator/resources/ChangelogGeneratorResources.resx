@@ -75,4 +75,7 @@
     <data name="SAVING_HTML" xml:space="preserve">
         <value>Saving HTML</value>
     </data>
+    <data name="INVALID_PREFIX" xml:space="preserve">
+        <value>Invalid prefix:</value>
+    </data>
 </root>
