@@ -61,6 +61,15 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Author not specified.
+        /// </summary>
+        internal static string AUTHOR_NOT_SPECIFIED {
+            get {
+                return ResourceManager.GetString("AUTHOR_NOT_SPECIFIED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File has non convertable format.
         /// </summary>
         internal static string CANT_CONVERT_FILE {
@@ -147,6 +156,15 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator {
         internal static string GENERATING_HTML {
             get {
                 return ResourceManager.GetString("GENERATING_HTML", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid prefix:.
+        /// </summary>
+        internal static string INVALID_PREFIX {
+            get {
+                return ResourceManager.GetString("INVALID_PREFIX", resourceCulture);
             }
         }
         

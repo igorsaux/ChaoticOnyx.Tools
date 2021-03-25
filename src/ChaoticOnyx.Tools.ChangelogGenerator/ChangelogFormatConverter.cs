@@ -19,8 +19,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         public static Changelog VgToChaoticOnyx(IDeserializer deserializer, string text)
         {
             text = text.Replace("delete-after:", "deleteAfter:");
-            Changelog result;
-
             var          parsed  = deserializer.Deserialize<VgChangelog>(text);
             List<Change> changes = new();
 
@@ -30,8 +28,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
                 {
                     changes.Add(new()
                     {
-                        Prefix = prefix,
-                        Message =  message
+                        Prefix = prefix, Message = message
                     });
                 }
             }
@@ -47,25 +44,33 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             public string Author
             {
                 get;
-                set;
+                init;
             }
 
             public DateTime Date
             {
                 get;
-                set;
+                init;
             }
 
             public bool DeleteAfter
             {
                 get;
-                set;
+                init;
             }
 
             public List<Dictionary<string, string>> Changes
             {
                 get;
-                set;
+                init;
+            }
+
+            public VgChangelog()
+            {
+                Author      = string.Empty;
+                Date        = DateTime.Now;
+                DeleteAfter = false;
+                Changes     = new();
             }
         }
     }

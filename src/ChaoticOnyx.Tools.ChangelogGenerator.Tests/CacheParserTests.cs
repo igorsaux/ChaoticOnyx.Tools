@@ -13,7 +13,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
     {
         private readonly string _cacheFile         = ".all_changelog.yml";
         private readonly string _changelogsFolder  = TestingProvider.SamplesFolder;
-        private readonly string _oldCacheFile      = ".old_changelog.yml";
+        private readonly string _oldCacheFile      = ".old_cache.yml";
         private readonly string _unknownFormatFile = ".unknown.yml";
 
         [Fact]
@@ -21,19 +21,25 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         {
             // Arrange
             var file   = $"{_changelogsFolder}{_cacheFile}";
-            var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer);
+            var parser = new CacheParser(TestingProvider.Deserializer);
 
             // Act
             var result = parser.ParseCacheFile(file);
-            
+
             // Assert
             Assert.True(result.Count == 2);
-            
-            Assert.True(result[0].Author == "Unknown");
-            Assert.True(result[1].Author == "UnknownSecond");
-            
-            Assert.True(result[0].Changes.Count == 2);
-            Assert.True(result[1].Changes.Count == 2);
+
+            Assert.True(result[0]
+                            .Author == "Unknown");
+
+            Assert.True(result[1]
+                            .Author == "UnknownSecond");
+
+            Assert.True(result[0]
+                        .Changes.Count == 2);
+
+            Assert.True(result[1]
+                        .Changes.Count == 2);
         }
 
         [Fact]
@@ -41,11 +47,11 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         {
             // Arrange
             var file   = $"{_changelogsFolder}{_oldCacheFile}";
-            var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer);
-            
+            var parser = new CacheParser(TestingProvider.Deserializer);
+
             // Act
             void Code() => parser.ParseCacheFile(file);
-            
+
             // Assert
             Assert.Throws<YamlException>(Code);
         }
@@ -55,11 +61,11 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         {
             // Arrange
             var file   = $"{_changelogsFolder}{_oldCacheFile}";
-            var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer, true);
-            
+            var parser = new CacheParser(TestingProvider.Deserializer, true);
+
             // Act
             var result = parser.ParseCacheFile(file);
-            
+
             // Assert
             Assert.True(result.Count == 2);
         }
@@ -69,13 +75,12 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         {
             // Arrange
             var file   = $"{_changelogsFolder}{_unknownFormatFile}";
-            var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer, true);
-            
+            var parser = new CacheParser(TestingProvider.Deserializer, true);
             File.WriteAllText(file, "hello, world!");
-            
+
             // Act
             void Code() => parser.ParseCacheFile(file);
-            
+
             // Assert
             Assert.Throws<YamlException>(Code);
         }
@@ -83,6 +88,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         public void Dispose()
         {
             var file = $"{_changelogsFolder}{_unknownFormatFile}";
+
             if (File.Exists(file))
             {
                 File.Delete(file);

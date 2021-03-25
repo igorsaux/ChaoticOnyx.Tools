@@ -1,10 +1,8 @@
 ﻿#region
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using Microsoft.Extensions.Logging;
 
 #endregion
@@ -31,12 +29,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             set;
         } = string.Empty;
 
-        public string ChangelogDateFormat
-        {
-            get;
-            set;
-        } = "G";
-        
         public bool DryRun
         {
             get;
@@ -67,17 +59,29 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             set;
         } = string.Empty;
 
+        public string[] ValidPrefixes
+        {
+            get;
+            set;
+        } = Array.Empty<string>();
+
+        public bool CiMode
+        {
+            get;
+            set;
+        } = false;
+
         public void Validate(ILogger? logger)
         {
             var fail = false;
-            ChangelogCache   = Path.GetFullPath(ChangelogCache, AppContext.BaseDirectory);
-            ChangelogsFolder = Path.GetFullPath(ChangelogsFolder, AppContext.BaseDirectory);
-            OutputChangelog  = Path.GetFullPath(OutputChangelog, AppContext.BaseDirectory);
-            Template         = Path.GetFullPath(Template, AppContext.BaseDirectory);
-            
+            ChangelogCache   = Path.GetFullPath(ChangelogCache);
+            ChangelogsFolder = Path.GetFullPath(ChangelogsFolder);
+            OutputChangelog  = Path.GetFullPath(OutputChangelog);
+            Template         = Path.GetFullPath(Template);
+
             if (!Directory.Exists(ChangelogsFolder))
             {
-                logger?.LogError($"{ChangelogGeneratorResources.FILE_DOES_NOT_EXIST} {ChangelogsFolder}");
+                logger?.LogError($"{ChangelogGeneratorResources.FOLDER_DOES_NOT_EXIST} {ChangelogsFolder}");
                 fail = true;
             }
 

@@ -14,20 +14,18 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
 {
     public static class TestingProvider
     {
-        public static readonly string             SamplesFolder = Path.GetFullPath("./samples/");
-        public static readonly DateTimeConverter  DateTimeConverter;
-        public static readonly IDeserializer      Deserializer;
-        public static readonly ISerializer        Serializer;
+        public static readonly string            SamplesFolder = Path.GetFullPath("./samples/");
+        public static readonly DateTimeConverter DateTimeConverter;
+        public static readonly IDeserializer     Deserializer;
+        public static readonly ISerializer       Serializer;
 
         static TestingProvider()
         {
             List<string> formats = new();
-            
             formats.AddRange(CultureInfo.CurrentCulture.DateTimeFormat.GetAllDateTimePatterns());
             formats.AddRange(CultureInfo.InvariantCulture.DateTimeFormat.GetAllDateTimePatterns());
-
             DateTimeConverter = new(DateTimeKind.Local, CultureInfo.InvariantCulture, formats.ToArray());
-            
+
             Deserializer = new DeserializerBuilder().WithTypeConverter(DateTimeConverter)
                                                     .WithNamingConvention(CamelCaseNamingConvention.Instance)
                                                     .Build();

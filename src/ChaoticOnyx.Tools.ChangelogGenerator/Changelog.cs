@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using YamlDotNet.Serialization;
 
-#pragma warning disable 8618
-
 #endregion
 
 namespace ChaoticOnyx.Tools.ChangelogGenerator
@@ -38,6 +36,14 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         {
             get;
             set;
+        }
+
+        public Changelog()
+        {
+            Author      = string.Empty;
+            Date        = DateTime.Now;
+            DeleteAfter = false;
+            Changes     = new();
         }
     }
 }

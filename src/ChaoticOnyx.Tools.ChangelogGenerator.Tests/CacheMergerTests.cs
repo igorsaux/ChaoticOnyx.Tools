@@ -35,7 +35,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
                 new()
                 {
                     Author = "UnknownSecond",
-                    Date = DateTime.Now.AddDays(1),
+                    Date   = DateTime.Now.AddDays(1),
                     Changes = new()
                     {
                         new()
@@ -47,7 +47,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
                 new()
                 {
                     Author = "Unknown",
-                    Date = DateTime.Now,
+                    Date   = DateTime.Now,
                     Changes = new()
                     {
                         new()
@@ -63,7 +63,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
                 new()
                 {
                     Author = "Unknown",
-                    Date = DateTime.Now.AddDays(2),
+                    Date   = DateTime.Now.AddDays(2),
                     Changes = new()
                     {
                         new()
@@ -77,15 +77,21 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
                     }
                 }
             };
-            
+
             // Act
-           var result = CacheMerger.Merge(cache);
-           
-           // Assert
-           Assert.True(result.Count == 3);
-           Assert.True(result[0].Changes.Count == 3);
-           Assert.True(result[1].Changes.Count == 1);
-           Assert.True(result[2].Changes.Count == 2);
+            var result = CacheMerger.Merge(cache);
+
+            // Assert
+            Assert.True(result.Count == 3);
+
+            Assert.True(result[0]
+                        .Changes.Count == 3);
+
+            Assert.True(result[1]
+                        .Changes.Count == 1);
+
+            Assert.True(result[2]
+                        .Changes.Count == 2);
         }
     }
 }

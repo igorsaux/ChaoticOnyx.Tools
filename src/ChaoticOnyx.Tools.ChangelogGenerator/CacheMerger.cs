@@ -12,8 +12,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         /// <summary>
         ///     Объединение чейнджлогов совпадающих по датам и авторам.
         /// </summary>
-        /// <param name="a"></param>
-        /// <param name="b"></param>
         /// <returns></returns>
         public static List<Changelog> Merge(List<Changelog> changes)
         {
@@ -25,16 +23,15 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
                 {
                     continue;
                 }
-                
-                var changelogChanges = changes.FindAll(e => e.Author == change.Author 
-                                                            && e.Date.Date == change.Date.Date)
-                                              .SelectMany(e => e.Changes).ToHashSet();
+
+                var changelogChanges = changes
+                                       .FindAll(e => e.Author == change.Author && e.Date.Date == change.Date.Date)
+                                       .SelectMany(e => e.Changes)
+                                       .ToHashSet();
 
                 result.Add(new()
                 {
-                    Author = change.Author,
-                    Date = change.Date,
-                    Changes = changelogChanges.ToList()
+                    Author = change.Author, Date = change.Date, Changes = changelogChanges.ToList()
                 });
             }
 
