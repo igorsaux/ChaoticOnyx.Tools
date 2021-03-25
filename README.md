@@ -8,7 +8,6 @@
 - [x] Создание кэша изменении.
 - [x] Генерация списка изменении в виде HTML на основе шаблонов.
 - [ ] Поддержка хранения изменении в форматах XML, JSON.
-- [ ] Поддержка CI.
 
 ### Настройки
 Все возможные настройки перечислены в секции "Options" файла [appsettings.json](https://github.com/igorsaux/ChaoticOnyx.Tools/blob/master/src/ChaoticOnyx.Tools.ChangelogGenerator/appsettings.json)

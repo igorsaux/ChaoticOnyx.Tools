@@ -103,7 +103,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             }
             catch (YamlException e)
             {
-                _logger?.LogError(
+                _logger?.LogWarning(
                     $"{ChangelogGeneratorResources.PARSING_ERROR} {e.InnerException?.Message ?? e.Message}");
 
                 _logger?.LogTrace(e, e.Message);
