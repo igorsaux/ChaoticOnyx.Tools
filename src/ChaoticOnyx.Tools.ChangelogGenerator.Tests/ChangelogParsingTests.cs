@@ -15,6 +15,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
     {
         private readonly string _changelogsFolder = TestingProvider.SamplesFolder;
         private readonly string _tempFile         = "out1.yml";
+        private readonly string _oldChangelog     = ".old_changelog.yml";
 
         [Fact]
         public void ParsingTextTest()
@@ -153,6 +154,61 @@ changes:
 
             // Assert
             Assert.Throws<YamlException>(Code);
+        }
+
+        [Fact]
+        public void ConvertingVgToChaoticOnyxFromTextTest()
+        {
+            // Arrange
+            var text   = File.ReadAllText($"{_changelogsFolder}{_oldChangelog}");
+            var parser = new ChangelogParser(TestingProvider.Deserializer, TestingProvider.Serializer, true);
+            
+            // Act
+            var result = parser.ParseFromText(text);
+            
+            // Assert
+            Assert.True(result.Author == "Unknown");
+            Assert.True(result.Date.Date == new DateTime(2021, 03, 23).Date);
+            Assert.True(result.Changes.Count == 2);
+            
+            Assert.True(result.Changes[0].Prefix == "rscadd");
+            Assert.True(result.Changes[0].Message == "Added a changelog editing system that should cause fewer conflicts and more accurate timestamps.");
+            
+            Assert.True(result.Changes[1].Prefix == "rscdel");
+            Assert.True(result.Changes[1].Message == "Killed innocent kittens.");
+        }
+
+        [Fact]
+        public void ConvertingFailFromTextTest()
+        {
+            // Arrange
+            var text   = "invalid yaml";
+            var parser = new ChangelogParser(TestingProvider.Deserializer, TestingProvider.Serializer, true);
+            
+            // Act
+            void Code() => parser.ParseFromText(text);
+            
+            // Assert
+            Assert.Throws<YamlException>(Code);
+        }
+
+        [Fact]
+        public void SettingTodayDateIfNotSpecifiedTest()
+        {
+            // Arrange
+            var text = @"
+author: Unknown
+changes:
+  - prefix: rscadd
+    message: Added feature";
+            
+            var parser = new ChangelogParser(TestingProvider.Deserializer, TestingProvider.Serializer);
+            
+            // Act
+            var result = parser.ParseFromText(text);
+            
+            // Assert
+            Assert.True(result.Date.Date == DateTime.Now.Date);
         }
 
         public void Dispose()

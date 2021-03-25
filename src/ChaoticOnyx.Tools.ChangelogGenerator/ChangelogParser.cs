@@ -61,12 +61,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
                 try
                 {
                     var c = ParseFromFile(file);
-
-                    if (c.Date == default)
-                    {
-                        c.Date = DateTime.Now.Date;
-                    }
-
                     result.Add(file, c);
                 }
                 catch (YamlException e)
@@ -101,7 +95,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         /// <exception cref="YamlException"></exception>
         public Changelog ParseFromText(string text)
         {
-            Changelog result;
+            Changelog? result = null;
 
             try
             {
@@ -127,15 +121,21 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
                     {
                         result = converter.Invoke(_deserializer, text);
                         _logger?.LogInformation($"{ChangelogGeneratorResources.FILE_CONVERTED}");
-
-                        return result;
                     }
                     catch (YamlException) { }
                 }
 
-                _logger?.LogError($"{ChangelogGeneratorResources.CANT_CONVERT_FILE}");
+                if (result == null)
+                {
+                    _logger?.LogError($"{ChangelogGeneratorResources.CANT_CONVERT_FILE}");
 
-                throw;
+                    throw;
+                }
+            }
+
+            if (result.Date == default)
+            {
+                result.Date = DateTime.Now.Date;
             }
 
             return result;
