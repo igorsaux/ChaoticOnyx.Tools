@@ -69,15 +69,6 @@
     <data name="FOLDER_DOES_NOT_EXIST" xml:space="preserve">
         <value>Folder does not exist</value>
     </data>
-    <data name="NO_HTML_TEMPLATES" xml:space="preserve">
-        <value>There are no HTML templates</value>
-    </data>
-    <data name="TEMPLATE_TYPE_NOT_FOUND" xml:space="preserve">
-        <value>There is no template for type</value>
-    </data>
-    <data name="TEMPLATE_TYPE_ARE_NOT_VALID" xml:space="preserve">
-        <value>This template type is not valid:</value>
-    </data>
     <data name="GENERATING_HTML" xml:space="preserve">
         <value>Generating HTML</value>
     </data>

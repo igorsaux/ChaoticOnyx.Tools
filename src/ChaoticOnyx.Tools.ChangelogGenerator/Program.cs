@@ -125,7 +125,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         private static void GenerateHTML()
         {
             Logger.LogInformation($"{ChangelogGeneratorResources.GENERATING_HTML}");
-            var builder = new HtmlChangelogBuilder(Options.Templates, new CultureInfo(Options.DateCulture), Logger, Options.ChangelogDateFormat);
+            var builder = new HtmlChangelogBuilder(File.ReadAllText(Options.Template), new CultureInfo(Options.DateCulture), Logger, Options.ChangelogDateFormat);
             
             Logger.LogInformation($"{ChangelogGeneratorResources.SAVING_HTML}");
             File.WriteAllText(Options.OutputChangelog, builder.Build(s_cache.OrderByDescending(e => e.Date)));

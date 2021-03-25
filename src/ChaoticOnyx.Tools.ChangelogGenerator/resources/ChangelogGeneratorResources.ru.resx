@@ -62,15 +62,6 @@
     <data name="FOLDER_DOES_NOT_EXIST" xml:space="preserve">
         <value>Директория не существует</value>
     </data>
-    <data name="NO_HTML_TEMPLATES" xml:space="preserve">
-        <value>Нет HTML шаблонов</value>
-    </data>
-    <data name="TEMPLATE_TYPE_NOT_FOUND" xml:space="preserve">
-        <value>Нет шаблона для типа</value>
-    </data>
-    <data name="TEMPLATE_TYPE_ARE_NOT_VALID" xml:space="preserve">
-        <value>Этот тип шаблона неправильный:</value>
-    </data>
     <data name="GENERATING_HTML" xml:space="preserve">
         <value>Генерация HTML</value>
     </data>

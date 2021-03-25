@@ -18,7 +18,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         public static readonly DateTimeConverter  DateTimeConverter;
         public static readonly IDeserializer      Deserializer;
         public static readonly ISerializer        Serializer;
-        public static readonly List<HtmlTemplate> HtmlTemplates;
 
         static TestingProvider()
         {
@@ -36,32 +35,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
             Serializer = new SerializerBuilder().WithTypeConverter(DateTimeConverter)
                                                 .WithNamingConvention(CamelCaseNamingConvention.Instance)
                                                 .Build();
-
-            HtmlTemplates = new()
-            {
-                new()
-                {
-                    Type = "header", Path = $"{SamplesFolder}header.html"
-                },
-                new()
-                {
-                    Type = "footer", Path = $"{SamplesFolder}footer.html"
-                },
-                new()
-                {
-                    Type = "date", Path = $"{SamplesFolder}date.html"
-                },
-                new()
-                {
-                    Type = "change_body", Path = $"{SamplesFolder}change_body.html"
-                },
-                new()
-                {
-                    Type = "change", Path = $"{SamplesFolder}change.html"
-                }
-            };
-            
-            HtmlTemplates.ForEach(t => t.Load());
         }
     }
 }

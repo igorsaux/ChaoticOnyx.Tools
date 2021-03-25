@@ -151,15 +151,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There are no HTML templates.
-        /// </summary>
-        internal static string NO_HTML_TEMPLATES {
-            get {
-                return ResourceManager.GetString("NO_HTML_TEMPLATES", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No new changelogs.
         /// </summary>
         internal static string NO_NEW_CHANGELOGS {
@@ -228,24 +219,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator {
         internal static string SEARCHING_CHANGELOGS_IN {
             get {
                 return ResourceManager.GetString("SEARCHING_CHANGELOGS_IN", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This template type is not valid:.
-        /// </summary>
-        internal static string TEMPLATE_TYPE_ARE_NOT_VALID {
-            get {
-                return ResourceManager.GetString("TEMPLATE_TYPE_ARE_NOT_VALID", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There is no template for type.
-        /// </summary>
-        internal static string TEMPLATE_TYPE_NOT_FOUND {
-            get {
-                return ResourceManager.GetString("TEMPLATE_TYPE_NOT_FOUND", resourceCulture);
             }
         }
         

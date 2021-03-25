@@ -23,7 +23,7 @@
 <table align='center' class="top">
 	<tr>
 		<td valign='top'>
-		<div align='center'><font size='3'><b>Список изменений сервера Chaotic Onyx</b></font></div>
+		<div align='center'><font size='3'><b>Список изменений сервера Chaotic Onyx на {{ generating_time }}</b></font></div>
 
 		<p><div align='center'><font size='3'><a href="https://wiki.ss13.ru/index.php?title=Main_Page">Вики</a> | <a href="https://github.com/ChaoticOnyx/OnyxBay">Репозиторий</a></font></div></p>
 		</td>
@@ -38,3 +38,20 @@
 
 		-->
 		<div class="commit sansserif">
+			{{~ last_date = null ~}}
+			{{~ for changelog in changelogs ~}}
+			{{~ if last_date != changelog.date ~}}
+			<h2 class="date">{{ changelog.date }}</h2>
+			{{~ last_date = changelog.date ~}}
+			{{~ end ~}}
+			<h3 class="author">{{ changelog.author }} updated:</h3>
+			<ul class="changes bgimages16">
+				{{~ for change in changelog.changes ~}}
+				<li class="{{ change.prefix }}">{{ change.message }}</li>
+				{{~ end ~}}
+			</ul>
+			{{~ end ~}}
+        </div>
+    </body>
+</html>
+        

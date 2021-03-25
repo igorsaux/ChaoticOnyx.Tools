@@ -61,17 +61,11 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             set;
         } = CultureInfo.CurrentCulture.ToString();
 
-        public string TemplatesFolder
+        public string Template
         {
             get;
             set;
         } = string.Empty;
-
-        public List<HtmlTemplate> Templates
-        {
-            get;
-            set;
-        } = new();
 
         public void Validate(ILogger? logger)
         {
@@ -79,7 +73,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             ChangelogCache   = Path.GetFullPath(ChangelogCache, AppContext.BaseDirectory);
             ChangelogsFolder = Path.GetFullPath(ChangelogsFolder, AppContext.BaseDirectory);
             OutputChangelog  = Path.GetFullPath(OutputChangelog, AppContext.BaseDirectory);
-            TemplatesFolder  = Path.GetFullPath(TemplatesFolder, AppContext.BaseDirectory);
+            Template         = Path.GetFullPath(Template, AppContext.BaseDirectory);
             
             if (!Directory.Exists(ChangelogsFolder))
             {
@@ -87,40 +81,10 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
                 fail = true;
             }
 
-            if (!Directory.Exists(TemplatesFolder))
+            if (GenerateHtml && string.IsNullOrEmpty(Template))
             {
-                logger?.LogError($"{ChangelogGeneratorResources.FOLDER_DOES_NOT_EXIST} {ChangelogsFolder}");
+                logger?.LogError($"{ChangelogGeneratorResources.FILE_DOES_NOT_EXIST} {Template}");
                 fail = true;
-            }
-
-            if (GenerateHtml && Templates.Count == 0)
-            {
-                logger?.LogError($"{ChangelogGeneratorResources.NO_HTML_TEMPLATES}");
-                fail = true;
-            }
-            
-            var types = Templates.Select(t => t.Type);
-
-            foreach (var validType in HtmlTemplate.ValidTypes)
-            {
-                if (!types.Contains(validType))
-                {
-                    logger?.LogError($"{ChangelogGeneratorResources.TEMPLATE_TYPE_NOT_FOUND} {validType}");
-                    fail = true;
-                }
-            }
-
-            foreach (var template in Templates)
-            {
-                if (!HtmlTemplate.ValidTypes.Contains(template.Type))
-                {
-                    logger?.LogError($"{ChangelogGeneratorResources.TEMPLATE_TYPE_ARE_NOT_VALID} {template.Type}");
-                    fail = true;
-                }
-
-                template.Path = Path.GetFullPath($"{TemplatesFolder}{template.Path}", AppContext.BaseDirectory);
-
-                template.Load();
             }
 
             if (fail)
