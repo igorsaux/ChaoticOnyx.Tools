@@ -25,16 +25,15 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
                 {
                     continue;
                 }
-                
-                var changelogChanges = changes.FindAll(e => e.Author == change.Author 
-                                                            && e.Date.Date == change.Date.Date)
-                                              .SelectMany(e => e.Changes).ToHashSet();
+
+                var changelogChanges = changes
+                                       .FindAll(e => e.Author == change.Author && e.Date.Date == change.Date.Date)
+                                       .SelectMany(e => e.Changes)
+                                       .ToHashSet();
 
                 result.Add(new()
                 {
-                    Author = change.Author,
-                    Date = change.Date,
-                    Changes = changelogChanges.ToList()
+                    Author = change.Author, Date = change.Date, Changes = changelogChanges.ToList()
                 });
             }
 

@@ -78,4 +78,7 @@
     <data name="INVALID_PREFIX" xml:space="preserve">
         <value>Invalid prefix:</value>
     </data>
+    <data name="AUTHOR_NOT_SPECIFIED" xml:space="preserve">
+        <value>Author not specified</value>
+    </data>
 </root>

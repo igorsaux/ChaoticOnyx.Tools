@@ -33,8 +33,8 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             _doConvert    = doConvert;
         }
 
-        public CacheParser(IDeserializer deserializer, ISerializer serializer, ILogger logger, bool doConvert = false)
-            : this(deserializer, serializer, doConvert)
+        public CacheParser(IDeserializer deserializer, ISerializer serializer, ILogger logger, bool doConvert = false) :
+            this(deserializer, serializer, doConvert)
         {
             _logger = logger;
         }
@@ -48,7 +48,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         public List<Changelog> ParseCacheFile(string fullPath)
         {
             List<Changelog> result;
-            var             text   = File.ReadAllText(fullPath);
+            var             text = File.ReadAllText(fullPath);
 
             try
             {
@@ -59,14 +59,16 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             }
             catch (YamlException e)
             {
-                _logger?.LogError($"{ChangelogGeneratorResources.PARSING_ERROR} {e.InnerException?.Message ?? e.Message}");
+                _logger?.LogError(
+                    $"{ChangelogGeneratorResources.PARSING_ERROR} {e.InnerException?.Message ?? e.Message}");
+
                 _logger?.LogTrace(e, e.Message);
 
                 if (!_doConvert)
                 {
                     throw;
                 }
-                
+
                 foreach (var converter in s_converters)
                 {
                     _logger?.LogWarning($"{ChangelogGeneratorResources.TRYING_TO_CONVERT} {{{converter.Method.Name}}}");
@@ -75,12 +77,12 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
                     {
                         result = converter.Invoke(_deserializer, text);
                         _logger?.LogInformation($"{ChangelogGeneratorResources.FILE_CONVERTED}");
-                        
+
                         return result;
                     }
                     catch (YamlException) { }
                 }
-                
+
                 _logger?.LogError($"{ChangelogGeneratorResources.CANT_CONVERT_FILE}");
 
                 throw;

@@ -25,15 +25,21 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
 
             // Act
             var result = parser.ParseCacheFile(file);
-            
+
             // Assert
             Assert.True(result.Count == 2);
-            
-            Assert.True(result[0].Author == "Unknown");
-            Assert.True(result[1].Author == "UnknownSecond");
-            
-            Assert.True(result[0].Changes.Count == 2);
-            Assert.True(result[1].Changes.Count == 2);
+
+            Assert.True(result[0]
+                            .Author == "Unknown");
+
+            Assert.True(result[1]
+                            .Author == "UnknownSecond");
+
+            Assert.True(result[0]
+                        .Changes.Count == 2);
+
+            Assert.True(result[1]
+                        .Changes.Count == 2);
         }
 
         [Fact]
@@ -42,10 +48,10 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
             // Arrange
             var file   = $"{_changelogsFolder}{_oldCacheFile}";
             var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer);
-            
+
             // Act
             void Code() => parser.ParseCacheFile(file);
-            
+
             // Assert
             Assert.Throws<YamlException>(Code);
         }
@@ -56,10 +62,10 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
             // Arrange
             var file   = $"{_changelogsFolder}{_oldCacheFile}";
             var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer, true);
-            
+
             // Act
             var result = parser.ParseCacheFile(file);
-            
+
             // Assert
             Assert.True(result.Count == 2);
         }
@@ -70,12 +76,11 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
             // Arrange
             var file   = $"{_changelogsFolder}{_unknownFormatFile}";
             var parser = new CacheParser(TestingProvider.Deserializer, TestingProvider.Serializer, true);
-            
             File.WriteAllText(file, "hello, world!");
-            
+
             // Act
             void Code() => parser.ParseCacheFile(file);
-            
+
             // Assert
             Assert.Throws<YamlException>(Code);
         }
@@ -83,6 +88,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         public void Dispose()
         {
             var file = $"{_changelogsFolder}{_unknownFormatFile}";
+
             if (File.Exists(file))
             {
                 File.Delete(file);

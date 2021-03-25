@@ -61,6 +61,15 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Author not specified.
+        /// </summary>
+        internal static string AUTHOR_NOT_SPECIFIED {
+            get {
+                return ResourceManager.GetString("AUTHOR_NOT_SPECIFIED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to File has non convertable format.
         /// </summary>
         internal static string CANT_CONVERT_FILE {

@@ -1,10 +1,8 @@
 ﻿#region
 
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using Xunit;
 
 #endregion
@@ -17,7 +15,8 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         public void SimpleHtmlChangelogBuildTest()
         {
             // Arrange
-            var expected  = @"<!DOCTYPE HTML PUBLIC ""-//W3C//DTD HTML 4.01 Transitional//EN"" ""http://www.w3.org/TR/html4/loose.dtd"">
+            var expected =
+                @"<!DOCTYPE HTML PUBLIC ""-//W3C//DTD HTML 4.01 Transitional//EN"" ""http://www.w3.org/TR/html4/loose.dtd"">
 <html>
     <head>
         <title>Changelog for 25 Mar 2021</title>
@@ -46,8 +45,10 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
 
     </body>
 </html>";
-            
-            var builder   = new HtmlChangelogBuilder(File.ReadAllText($"{TestingProvider.SamplesFolder}test_template.tmpl"), CultureInfo.InvariantCulture, null, "dd.MM.yyy");
+
+            var builder = new HtmlChangelogBuilder(
+                File.ReadAllText($"{TestingProvider.SamplesFolder}test_template.tmpl"), CultureInfo.InvariantCulture,
+                null, "dd.MM.yyy");
 
             List<Changelog> changelogs = new()
             {
@@ -67,10 +68,10 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
                         }
                     }
                 },
-                new ()
+                new()
                 {
                     Author = "Unknown",
-                    Date = new(2020, 02, 02),
+                    Date   = new(2020, 02, 02),
                     Changes = new()
                     {
                         new()
@@ -86,7 +87,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
                 new()
                 {
                     Author = "UnknownSecond",
-                    Date = new(2020, 02, 03),
+                    Date   = new(2020, 02, 03),
                     Changes = new()
                     {
                         new()
@@ -96,10 +97,10 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
                     }
                 }
             };
-            
+
             // Act
             var result = builder.Build(changelogs);
-            
+
             // Assert
             Assert.Equal(expected, result);
         }

@@ -71,4 +71,7 @@
     <data name="INVALID_PREFIX" xml:space="preserve">
         <value>Недопустимый префикс:</value>
     </data>
+    <data name="AUTHOR_NOT_SPECIFIED" xml:space="preserve">
+        <value>Автор не указан</value>
+    </data>
 </root>

@@ -21,6 +21,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
         {
             // Arrange
             var parser = new ChangelogParser(TestingProvider.Deserializer, TestingProvider.Serializer);
+
             string valid = @"
 author: Unknown
 date: ""2018-02-27""
@@ -33,18 +34,26 @@ changes:
 ";
 
             // Act
-            var result = parser.ParseText(valid);
-            
+            var result = parser.ParseFromText(valid);
+
             // Assert
             Assert.True(result.Author == "Unknown");
             Assert.True(result.Date.Date == new DateTime(2018, 02, 27).Date);
             Assert.True(result.DeleteAfter);
             Assert.True(result.Changes.Count == 2);
-            
-            Assert.True(result.Changes[0].Prefix == "rscadd");
-            Assert.True(result.Changes[0].Message == "Added a changelog editing system that should cause fewer conflicts and more accurate timestamps.");
-            Assert.True(result.Changes[1].Prefix == "rscdel");
-            Assert.True(result.Changes[1].Message == "Killed innocent kittens.");
+
+            Assert.True(result.Changes[0]
+                              .Prefix == "rscadd");
+
+            Assert.True(result.Changes[0]
+                              .Message
+                        == "Added a changelog editing system that should cause fewer conflicts and more accurate timestamps.");
+
+            Assert.True(result.Changes[1]
+                              .Prefix == "rscdel");
+
+            Assert.True(result.Changes[1]
+                              .Message == "Killed innocent kittens.");
         }
 
         [Fact]
@@ -53,20 +62,27 @@ changes:
             // Arrange
             var parser = new ChangelogParser(TestingProvider.Deserializer, TestingProvider.Serializer);
             var file   = Path.GetFullPath("test.yml", _changelogsFolder);
-            
+
             // Act
-            var result = parser.ParseFile(file);
-            
+            var result = parser.ParseFromFile(file);
+
             // Assert
             Assert.True(result.Author == "Unknown");
             Assert.True(result.DeleteAfter);
             Assert.True(result.Date.Date == new DateTime(2018, 02, 27).Date);
             Assert.True(result.Changes.Count == 2);
-            
-            Assert.True(result.Changes[0].Prefix == "rscadd");
-            Assert.True(result.Changes[0].Message == "Added features");
-            Assert.True(result.Changes[1].Prefix == "rscdel");
-            Assert.True(result.Changes[1].Message == "Deleted bugs");
+
+            Assert.True(result.Changes[0]
+                              .Prefix == "rscadd");
+
+            Assert.True(result.Changes[0]
+                              .Message == "Added features");
+
+            Assert.True(result.Changes[1]
+                              .Prefix == "rscdel");
+
+            Assert.True(result.Changes[1]
+                              .Message == "Deleted bugs");
         }
 
         [Fact]
@@ -74,10 +90,10 @@ changes:
         {
             // Arrange
             var parser = new ChangelogParser(TestingProvider.Deserializer, TestingProvider.Serializer);
-            
+
             // Act
-            var result = parser.ParseFolder(_changelogsFolder);
-            
+            var result = parser.ParseFromFolder(_changelogsFolder);
+
             // Assert
             Assert.True(result.Count == 2);
         }
@@ -86,8 +102,7 @@ changes:
         public void SavingChangelogsTest()
         {
             // Arrange
-            var file = $"{_changelogsFolder}{_tempFile}";
-
+            var file   = $"{_changelogsFolder}{_tempFile}";
             var parser = new ChangelogParser(TestingProvider.Deserializer, TestingProvider.Serializer);
 
             var changelogs = new Dictionary<string, Changelog>
@@ -115,9 +130,9 @@ changes:
 
             // Act
             parser.SaveChangelogs(changelogs);
-            var parsed   = parser.ParseFile(changelogs.Keys.First(k => k == file));
+            var parsed   = parser.ParseFromFile(changelogs.Keys.First(k => k == file));
             var original = changelogs[file];
-            
+
             // Assert
             Assert.True(File.Exists(file));
             Assert.True(original.Author == parsed.Author);
@@ -129,13 +144,13 @@ changes:
         public void InvalidFileParsingTest()
         {
             // Arrange
-            var file   = $"{_changelogsFolder}{_tempFile}";
+            var file = $"{_changelogsFolder}{_tempFile}";
             File.WriteAllText(file, "hello, world!");
             var parser = new ChangelogParser(TestingProvider.Deserializer, TestingProvider.Serializer);
 
             // Act
-            void Code() => parser.ParseFolder(_changelogsFolder);
-            
+            void Code() => parser.ParseFromFolder(_changelogsFolder);
+
             // Assert
             Assert.Throws<YamlException>(Code);
         }
@@ -143,7 +158,7 @@ changes:
         public void Dispose()
         {
             var file = $"{_changelogsFolder}{_tempFile}";
-            
+
             if (File.Exists(file))
             {
                 File.Delete(file);

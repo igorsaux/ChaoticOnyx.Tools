@@ -2,9 +2,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
 using System.Text;
 using Microsoft.Extensions.Logging;
 using Scriban;
@@ -39,8 +36,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
 
             var context = new
             {
-                GeneratingTime = DateTime.Now,
-                Changelogs = changelogs
+                GeneratingTime = DateTime.Now, Changelogs = changelogs
             };
 
             _builder.Append(_template.Render(context));
