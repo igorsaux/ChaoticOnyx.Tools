@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <OutputType>Exe</OutputType>
+        <IsPackable>true</IsPackable>
+        <PackAsTool>true</PackAsTool>
+        <ToolCommandName>chaotic-tools</ToolCommandName>
+    </PropertyGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\ChaoticOnyx.Tools.ChangelogGenerator\ChaoticOnyx.Tools.ChangelogGenerator.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <EmbeddedResource Update="resources\CoreResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>CoreResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="resources\CoreResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CoreResources.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+</Project>
