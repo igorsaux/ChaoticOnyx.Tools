@@ -27,7 +27,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             Prefix  = string.Empty;
             Message = string.Empty;
         }
-        
+
         public static bool operator ==(Change a, Change b)
         {
             return a.Equals(b);
