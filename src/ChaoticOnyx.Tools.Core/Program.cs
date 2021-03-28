@@ -11,8 +11,7 @@ namespace ChaoticOnyx.Tools.Core
     {
         private static readonly string[] s_commands =
         {
-            "changelog",
-            "help"
+            "changelog", "help"
         };
 
         private static void PrintAvaileCommands()
