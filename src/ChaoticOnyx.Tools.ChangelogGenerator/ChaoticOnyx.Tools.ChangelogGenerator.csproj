@@ -9,11 +9,6 @@
       <PackageReference Include="YamlDotNet" Version="9.1.4" />
     </ItemGroup>
     <ItemGroup>
-      <_ContentIncludedByDefault Remove="obj\ChaoticOnyx.Tools.ChangelogGenerator.csproj.nuget.dgspec.json" />
-      <_ContentIncludedByDefault Remove="obj\project.assets.json" />
-      <_ContentIncludedByDefault Remove="obj\project.packagespec.json" />
-    </ItemGroup>
-    <ItemGroup>
       <EmbeddedResource Update="resources\ChangelogGeneratorResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ChangelogGeneratorResources.Designer.cs</LastGenOutput>
