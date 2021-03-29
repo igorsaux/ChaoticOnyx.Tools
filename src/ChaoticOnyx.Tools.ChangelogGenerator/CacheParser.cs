@@ -31,8 +31,8 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             _doConvert    = doConvert;
         }
 
-        public CacheParser(IDeserializer deserializer, ILogger logger, bool doConvert = false) :
-            this(deserializer, doConvert)
+        public CacheParser(IDeserializer deserializer, ILogger logger, bool doConvert = false) : this(
+            deserializer, doConvert)
         {
             _logger = logger;
         }

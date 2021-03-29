@@ -1,0 +1,25 @@
+name: .NET
+
+on:
+  push:
+    branches: [ release ]
+
+jobs:
+  publish-nuget:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Test
+      run: dotnet test --verbosity normal
+    - name: Publish
+      uses: brandedoutcast/publish-nuget@v2.5.5
+      with:
+        PROJECT_FILE_PATH: ./src/ChaoticOnyx.Tools.Core/ChaoticOnyx.Tools.Core.csproj
+        VERSION_REGEX: '^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$'
+        TAG_FORMAT: '*'
+        NUGET_KEY: ${{secrets.NUGET_API_KEY}}        

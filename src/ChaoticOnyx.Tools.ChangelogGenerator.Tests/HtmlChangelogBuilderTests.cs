@@ -1,7 +1,6 @@
 ﻿#region
 
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using Xunit;
 
@@ -19,7 +18,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
                 @"<!DOCTYPE HTML PUBLIC ""-//W3C//DTD HTML 4.01 Transitional//EN"" ""http://www.w3.org/TR/html4/loose.dtd"">
 <html>
     <head>
-        <title>Changelog for 25 Mar 2021</title>
+        <title>Changelog</title>
         <meta http-equiv=""Content-Type"" content=""text/html""; charset=""utf-8"">
     </head>
 
@@ -41,7 +40,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
             <li class=""rscadd"">Added yet another feature</li>
         </ul>
 
-        <h2>Changelog for 25 Mar 2021</h2>
+        <h2>Changelog</h2>
 
     </body>
 </html>";

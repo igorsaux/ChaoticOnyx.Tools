@@ -1,4 +1,8 @@
-﻿using Xunit;
+﻿#region
+
+using Xunit;
+
+#endregion
 
 namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
 {
@@ -10,10 +14,10 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
             // Arrange
             var change1 = new Change();
             var change2 = change1;
-            
+
             // Act
             var result = change1 == change2;
-            
+
             // Assert
             Assert.True(result);
         }
@@ -26,7 +30,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
 
             // Act
             var result = change1 != null;
-            
+
             // Assert
             Assert.True(result);
         }
@@ -37,10 +41,10 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
             // Arrange
             var    change1 = new Change();
             object change2 = change1;
-            
+
             // Act
             var result = change1 == change2;
-            
+
             // Assert
             Assert.True(result);
         }
@@ -51,10 +55,10 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
             // Arrange
             var    change1 = new Change();
             object change2 = null;
-            
+
             // Act
             var result = change1.Equals(change2);
-            
+
             // Assert
             Assert.False(result);
         }
@@ -65,10 +69,10 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Tests
             // Arrange
             var    change1 = new Change();
             object change2 = new Changelog();
-            
+
             // Act
             var result = change1.Equals(change2);
-            
+
             // Assert
             Assert.False(result);
         }
