@@ -44,21 +44,25 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
             public string Author
             {
                 get;
+                init;
             }
 
             public DateTime Date
             {
                 get;
+                init;
             }
 
             public bool DeleteAfter
             {
                 get;
+                init;
             }
 
             public List<Dictionary<string, string>> Changes
             {
                 get;
+                init;
             }
 
             public VgChangelog()
