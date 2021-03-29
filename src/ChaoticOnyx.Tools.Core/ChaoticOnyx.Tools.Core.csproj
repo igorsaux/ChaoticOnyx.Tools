@@ -5,7 +5,7 @@
         <OutputType>Exe</OutputType>
 
         <PackageType>DotnetTool</PackageType>
-        <PackageVersion>1.0.1</PackageVersion>
+        <PackageVersion>1.0.2</PackageVersion>
         <PackageId>ChaoticOnyx.Tools</PackageId>
         <Title>Chaotic Onyx Tools</Title>
         <Authors>Igor Spichkin</Authors>
