@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -22,18 +21,6 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
 {
     public static class Program
     {
-        public static ILogger Logger
-        {
-            get;
-            set;
-        }
-        
-        public static Options Options
-        {
-            get;
-            set;
-        }
-
         /// <summary>
         ///     Путь - Класс.
         /// </summary>
@@ -51,6 +38,18 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         ///     Содержимое кэш файла.
         /// </summary>
         private static List<Changelog> s_cache;
+
+        public static ILogger Logger
+        {
+            get;
+            set;
+        }
+
+        public static Options Options
+        {
+            get;
+            set;
+        }
 
         public static int Main(string[] args)
         {
@@ -139,9 +138,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
         private static void GenerateHTML()
         {
             Logger.LogInformation($"{ChangelogGeneratorResources.GENERATING_HTML}");
-
             var builder = new HtmlChangelogBuilder(File.ReadAllText(Options.Template));
-
             Logger.LogInformation($"{ChangelogGeneratorResources.SAVING_HTML}");
             File.WriteAllText(Options.OutputChangelog, builder.Build(s_cache.OrderByDescending(e => e.Date)));
         }

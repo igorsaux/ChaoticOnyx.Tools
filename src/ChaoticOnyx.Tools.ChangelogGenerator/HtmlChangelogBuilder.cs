@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Microsoft.Extensions.Logging;
 using Scriban;
 
 #endregion
@@ -12,13 +11,13 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
 {
     public class HtmlChangelogBuilder
     {
-        private readonly StringBuilder   _builder;
-        private readonly Template        _template;
+        private readonly StringBuilder _builder;
+        private readonly Template      _template;
 
-        public HtmlChangelogBuilder(string          template)
+        public HtmlChangelogBuilder(string template)
         {
-            _template           = Template.Parse(template);
-            _builder            = new();
+            _template = Template.Parse(template);
+            _builder  = new();
         }
 
         public string Build(IEnumerable<Changelog> changelogs)
