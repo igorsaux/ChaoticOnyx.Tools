@@ -1,49 +1,102 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using YamlDotNet.Serialization;
-
-#endregion
+using System.Linq;
 
 namespace ChaoticOnyx.Tools.ChangelogGenerator
 {
-    /// <summary>
-    ///     Десериализованная информация об изменениях.
-    /// </summary>
-    public sealed class Changelog
-    {
-        public string Author
-        {
-            get;
-            set;
-        }
+	public sealed record Changelog
+	{
+		public Changelog()
+		{
+			Author  = "Unknown";
+			Date    = DateTime.Now;
+			Changes = new List<Change>();
+		}
+		
+		public Changelog(string author, DateTime date, List<Change> changes)
+		{
+			Author      = author;
+			Date        = date;
+			Changes     = changes;
+		}
 
-        public DateTime Date
-        {
-            get;
-            set;
-        }
+		/// <summary>
+		///		Автор изменений.
+		/// </summary>
+		public string Author
+		{
+			get;
+			init;
+		}
 
-        [YamlMember(DefaultValuesHandling = DefaultValuesHandling.OmitDefaults)]
-        public bool DeleteAfter
-        {
-            get;
-            set;
-        }
+		/// <summary>
+		///		Дата изменении.
+		/// </summary>
+		public DateTime Date
+		{
+			get;
+			init;
+		}
 
-        public List<Change> Changes
-        {
-            get;
-            set;
-        }
+		/// <summary>
+		///		Изменения.
+		/// </summary>
+		public IEnumerable<Change> Changes
+		{
+			get;
+			init;
+		}
 
-        public Changelog()
-        {
-            Author      = string.Empty;
-            Date        = DateTime.Now;
-            DeleteAfter = false;
-            Changes     = new();
-        }
-    }
+		public static ICollection<Changelog> Merge(ICollection<Changelog> changelogs)
+		{
+			List<Changelog> result = new();
+
+			foreach (var changelog in changelogs)
+			{
+				if (result.Any(e => e.Author == changelog.Author && e.Date.Date == changelog.Date.Date))
+				{
+					continue;
+				}
+
+				var changelogChanges = changelogs
+									   .Where(e => e.Author == changelog.Author && e.Date.Date == changelog.Date.Date)
+									   .SelectMany(e => e.Changes)
+									   .ToHashSet();
+
+				result.Add(new()
+				{
+					Author = changelog.Author, Date = changelog.Date, Changes = changelogChanges
+				});
+			}
+
+			return result;
+		}
+	}
+
+	public sealed record Change
+	{
+		/// <summary>
+		///		Префикс изменения.
+		/// </summary>
+		public string Prefix
+		{
+			get;
+			init;
+		}
+
+		/// <summary>
+		///		Описание изменения.
+		/// </summary>
+		public string Message
+		{
+			get;
+			init;
+		}
+
+		public Change(string prefix, string message)
+		{
+			Prefix  = prefix;
+			Message = message;
+		}
+	}
 }

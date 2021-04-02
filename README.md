@@ -13,15 +13,14 @@
 ### Возможности
 - [x] Создание кэша изменении.
 - [x] Генерация списка изменении в виде HTML на основе шаблонов.
-- [ ] Поддержка хранения изменении в форматах XML, JSON.
+- [x] Поддержка хранения изменении в форматах JSON.
 
 ### Настройки
 Все возможные настройки перечислены в секции "Options" файла [appsettings.json](https://github.com/igorsaux/ChaoticOnyx.Tools/blob/master/src/ChaoticOnyx.Tools.ChangelogGenerator/appsettings.json)
 
 ##  ChaoticOnyx.Tools.StyleCop :construction:
-Аналог StyleCop'а но для языка DM. Работает на основе [Hekate](https://github.com/igorsaux/ChaoticOnyx.Hekate).
+Аналог StyleCop'а но для языка DM.
 
 ### Возможности
 - [ ] Настройка правил форматирования по файлу с эталонным кодом.
 - [ ] Автоформатирование кода.
-- [ ] API для работы с кодом.

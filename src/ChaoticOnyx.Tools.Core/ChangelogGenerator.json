@@ -1,0 +1,35 @@
+﻿{
+    "Logging": {
+        "LogLevel": {
+            "Default": "Debug",
+            "System": "Information",
+            "Microsoft": "Information",
+            "ChangelogGenerator": "Information"
+        }
+    },
+    "Settings": {
+        "ChangelogsFolder": "./html/changelogs/",
+        "ChangelogsCache": "./html/changelogs/.all_changelog.yml",
+        "HtmlChangelog": "./html/changelog.html",
+        "DryRun": false,
+        "GenerateHTML": true,
+        "HtmlTemplate": "./html/templates/changelog.tmpl",
+        "ValidPrefixes": [
+            "bugfix",
+            "wip",
+            "tweak",
+            "soundadd",
+            "sounddel",
+            "rscdel",
+            "rscadd",
+            "imageadd",
+            "imagedel",
+            "maptweak",
+            "spellcheck",
+            "experiment",
+            "balance",
+            "admin"
+        ]
+    }
+
+}

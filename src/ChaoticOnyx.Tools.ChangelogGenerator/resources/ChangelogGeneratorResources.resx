@@ -81,4 +81,7 @@
     <data name="AUTHOR_NOT_SPECIFIED" xml:space="preserve">
         <value>Author not specified</value>
     </data>
+    <data name="NEW_CHANGELOGS" xml:space="preserve">
+        <value>New changelogs:</value>
+    </data>
 </root>

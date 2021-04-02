@@ -1,6 +1,0 @@
-author: Unknown
-deleteAfter: True
-date: "23.03.2021"
-changes:
-  - rscadd: "Added a changelog editing system that should cause fewer conflicts and more accurate timestamps."
-  - rscdel: "Killed innocent kittens."

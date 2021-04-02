@@ -1,55 +1,42 @@
-﻿#region
-
-using System;
+﻿using System;
 using ChaoticOnyx.Tools.Core.resources;
-
-#endregion
 
 namespace ChaoticOnyx.Tools.Core
 {
-    public static class Program
-    {
-        private static readonly string[] s_commands =
-        {
-            "changelog", "help"
-        };
+	public static class Program
+	{
+		private static void PrintAvailableTools()
+		{
+			Console.WriteLine($"{CoreResources.AVAILABLE_COMMAND}");
 
-        private static void PrintAvaileCommands()
-        {
-            Console.WriteLine($"{CoreResources.AVAILABLE_COMMAND}");
+			foreach (var tool in ToolProvider.Tools)
+			{
+				var description = CoreResources.ResourceManager.GetString(tool.Description);
+				Console.WriteLine($"	{tool.RunCommand} - {description}");
+			}
+		}
 
-            foreach (var tool in s_commands)
-            {
-                Console.WriteLine($"  {tool}");
-            }
-        }
+		public static int Main(string[] args)
+		{
+			if (args.Length == 0)
+			{
+				PrintAvailableTools();
 
-        public static int Main(string[] args)
-        {
-            if (args.Length == 0)
-            {
-                PrintAvaileCommands();
+				return -1;
+			}
 
-                return -1;
-            }
+			string         command = args[0];
+			ToolAttribute? tool    = ToolProvider.GetTool(command);
 
-            var input = args[0]
-                .ToLower();
+			if (tool is null)
+			{
+				Console.WriteLine($"{CoreResources.UNKNOWN_COMMAND} `{command}`");
+				PrintAvailableTools();
 
-            switch (input)
-            {
-                case "changelog":
-                    return ChangelogGenerator.Program.Main(args[1..]);
-                case "help":
-                    Console.WriteLine(CoreResources.HELP);
+				return -1;
+			}
 
-                    return 0;
-                default:
-                    Console.WriteLine($"{CoreResources.UNKNOWN_COMMAND} `{args[0]}`");
-                    PrintAvaileCommands();
-
-                    return -1;
-            }
-        }
-    }
+			return tool.Run(args[1..]);
+		}
+	}
 }

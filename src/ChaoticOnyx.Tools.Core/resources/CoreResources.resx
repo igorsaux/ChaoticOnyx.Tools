@@ -27,4 +27,10 @@
     <data name="HELP" xml:space="preserve">
         <value>Fore more information visit: https://github.com/igorsaux/chaoticonyx.tools/</value>
     </data>
+    <data name="CHANGELOG_NAME" xml:space="preserve">
+        <value>Changelog Generator</value>
+    </data>
+    <data name="CHANGELOG_DESCRIPTION" xml:space="preserve">
+        <value>Generates HTML changelogs.</value>
+    </data>
 </root>

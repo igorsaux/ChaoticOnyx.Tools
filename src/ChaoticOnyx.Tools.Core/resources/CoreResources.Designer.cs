@@ -70,6 +70,24 @@ namespace ChaoticOnyx.Tools.Core.resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Generates HTML changelogs..
+        /// </summary>
+        internal static string CHANGELOG_DESCRIPTION {
+            get {
+                return ResourceManager.GetString("CHANGELOG_DESCRIPTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changelog Generator.
+        /// </summary>
+        internal static string CHANGELOG_NAME {
+            get {
+                return ResourceManager.GetString("CHANGELOG_NAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Fore more information visit: https://github.com/igorsaux/chaoticonyx.tools/.
         /// </summary>
         internal static string HELP {

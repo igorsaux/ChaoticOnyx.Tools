@@ -7,15 +7,15 @@
             "ChaoticOnyx.ChangelogGenerator": "Information"
         }
     },
-    "Options": {
+    "Settings": {
         "ChangelogsFolder": "./html/changelogs/",
-        "ChangelogCache": "./html/changelogs/.all_changelog.yml",
+        "ChangelogsCache": "./html/changelogs/.all_changelog.yml",
         "OutputChangelog": "./html/changelog.html",
         "DryRun": false,
         "AutoConvert": true,
         "GenerateHTML": true,
         "DateCulture": "ru",
-        "Template": "./html/templates/chaoticonyx.tmpl",
+        "HtmlTemplate": "./html/templates/chaoticonyx.tmpl",
         "ValidPrefixes": [
             "bugfix",
             "wip",

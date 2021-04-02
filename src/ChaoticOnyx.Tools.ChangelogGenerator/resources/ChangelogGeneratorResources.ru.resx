@@ -74,4 +74,7 @@
     <data name="AUTHOR_NOT_SPECIFIED" xml:space="preserve">
         <value>Автор не указан</value>
     </data>
+    <data name="NEW_CHANGELOGS" xml:space="preserve">
+        <value>Новых чейнджлогов:</value>
+    </data>
 </root>
