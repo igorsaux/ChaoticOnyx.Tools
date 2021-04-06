@@ -30,10 +30,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Parsers
 												 .WithNamingConvention(CamelCaseNamingConvention.Instance)
 												 .Build();
 
-			_changelogConverters = new List<Func<string, Changelog>>
-			{
-				ChaoticOnyxChangelog, VgChangelogToChaoticOnyx
-			};
+			_changelogConverters = new List<Func<string, Changelog>> { ChaoticOnyxChangelog, VgChangelogToChaoticOnyx };
 
 			_cacheConverters = new List<Func<string, ICollection<Changelog>>>
 			{
@@ -57,10 +54,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Parsers
 				}
 				catch (YamlException)
 				{
-					if (i == _changelogConverters.Count - 1)
-					{
-						throw;
-					}
+					if (i == _changelogConverters.Count - 1) { throw; }
 				}
 			}
 
@@ -85,10 +79,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Parsers
 				}
 				catch (YamlException)
 				{
-					if (i == _cacheConverters.Count - 1)
-					{
-						throw;
-					}
+					if (i == _cacheConverters.Count - 1) { throw; }
 				}
 			}
 
@@ -117,10 +108,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Parsers
 
 					foreach (var change in changes)
 					{
-						foreach (var (prefix, message) in change)
-						{
-							changesList.Add(new Change(prefix, message));
-						}
+						foreach (var (prefix, message) in change) { changesList.Add(new Change(prefix, message)); }
 					}
 
 					var changelog = new Changelog(author, date, changesList);
@@ -147,10 +135,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Parsers
 
 			foreach (var e in parsed.Changes)
 			{
-				foreach (var (prefix, message) in e)
-				{
-					changes.Add(new Change(prefix, message));
-				}
+				foreach (var (prefix, message) in e) { changes.Add(new Change(prefix, message)); }
 			}
 
 			return new Changelog(parsed.Author, DateTime.Now, changes);

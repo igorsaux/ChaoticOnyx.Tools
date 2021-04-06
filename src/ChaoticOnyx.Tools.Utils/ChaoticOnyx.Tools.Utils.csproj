@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <OutputType>Library</OutputType>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="Spectre.Console" Version="0.38.1-preview.0.28" />
+    </ItemGroup>
+</Project>

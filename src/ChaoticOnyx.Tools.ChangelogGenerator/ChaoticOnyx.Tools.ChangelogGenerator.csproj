@@ -30,4 +30,8 @@
         <DependentUpon>ChangelogGeneratorResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ChaoticOnyx.Tools.Utils\ChaoticOnyx.Tools.Utils.csproj" />
+    </ItemGroup>
 </Project>

@@ -77,4 +77,7 @@
     <data name="NEW_CHANGELOGS" xml:space="preserve">
         <value>Новых чейнджлогов:</value>
     </data>
+    <data name="FILE_PARSED" xml:space="preserve">
+        <value>Файл запарсен:</value>
+    </data>
 </root>
