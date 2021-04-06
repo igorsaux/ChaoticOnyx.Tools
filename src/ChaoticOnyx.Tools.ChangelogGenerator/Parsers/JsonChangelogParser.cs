@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Text.Json;
 
 namespace ChaoticOnyx.Tools.ChangelogGenerator.Parsers
@@ -12,15 +11,12 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Parsers
 
 		public JsonChangelogParser()
 		{
-			_options = new JsonSerializerOptions()
-			{
-				PropertyNamingPolicy = JsonNamingPolicy.CamelCase
-			};
+			_options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
 		}
-		
+
 		public override Changelog Parse(string text)
 		{
-			Changelog? result = JsonSerializer.Deserialize<Changelog>(text, _options);
+			var result = JsonSerializer.Deserialize<Changelog>(text, _options);
 			Debug.Assert(result != null);
 
 			return result!;
@@ -28,7 +24,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Parsers
 
 		public override ICollection<Changelog> ParseCache(string text)
 		{
-			ICollection<Changelog>? result = JsonSerializer.Deserialize<ICollection<Changelog>>(text, _options);
+			var result = JsonSerializer.Deserialize<ICollection<Changelog>>(text, _options);
 			Debug.Assert(result != null);
 
 			return result;

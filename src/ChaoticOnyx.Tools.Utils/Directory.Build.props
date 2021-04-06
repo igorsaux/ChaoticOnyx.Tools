@@ -1,0 +1,4 @@
+<Project>
+  <Import Project="../../Directory.Build.props"/>
+  <Import Condition="'$(SolutionDir)' != ''" Project="$(SolutionDir)Directory.Build.props" />
+</Project>

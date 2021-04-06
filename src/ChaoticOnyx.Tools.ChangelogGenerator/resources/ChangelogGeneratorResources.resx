@@ -84,4 +84,7 @@
     <data name="NEW_CHANGELOGS" xml:space="preserve">
         <value>New changelogs:</value>
     </data>
+    <data name="FILE_PARSED" xml:space="preserve">
+        <value>File parsed:</value>
+    </data>
 </root>

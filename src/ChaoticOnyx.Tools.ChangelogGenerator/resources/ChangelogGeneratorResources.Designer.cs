@@ -22,7 +22,7 @@ namespace ChaoticOnyx.Tools.Core.resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ChangelogGeneratorResources {
+    internal class ChangelogGeneratorResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -90,7 +90,7 @@ namespace ChaoticOnyx.Tools.Core.resources {
         /// <summary>
         ///   Looks up a localized string similar to Changelogs delta:.
         /// </summary>
-        public static string CHANGELOGS_DELTA {
+        internal static string CHANGELOGS_DELTA {
             get {
                 return ResourceManager.GetString("CHANGELOGS_DELTA", resourceCulture);
             }
@@ -142,6 +142,15 @@ namespace ChaoticOnyx.Tools.Core.resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File parsed:.
+        /// </summary>
+        internal static string FILE_PARSED {
+            get {
+                return ResourceManager.GetString("FILE_PARSED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Folder does not exist.
         /// </summary>
         internal static string FOLDER_DOES_NOT_EXIST {
@@ -162,7 +171,7 @@ namespace ChaoticOnyx.Tools.Core.resources {
         /// <summary>
         ///   Looks up a localized string similar to Invalid prefix:.
         /// </summary>
-        public static string INVALID_PREFIX {
+        internal static string INVALID_PREFIX {
             get {
                 return ResourceManager.GetString("INVALID_PREFIX", resourceCulture);
             }
@@ -171,7 +180,7 @@ namespace ChaoticOnyx.Tools.Core.resources {
         /// <summary>
         ///   Looks up a localized string similar to New changelogs:.
         /// </summary>
-        public static string NEW_CHANGELOGS {
+        internal static string NEW_CHANGELOGS {
             get {
                 return ResourceManager.GetString("NEW_CHANGELOGS", resourceCulture);
             }
@@ -180,7 +189,7 @@ namespace ChaoticOnyx.Tools.Core.resources {
         /// <summary>
         ///   Looks up a localized string similar to No new changelogs.
         /// </summary>
-        public static string NO_NEW_CHANGELOGS {
+        internal static string NO_NEW_CHANGELOGS {
             get {
                 return ResourceManager.GetString("NO_NEW_CHANGELOGS", resourceCulture);
             }
@@ -225,7 +234,7 @@ namespace ChaoticOnyx.Tools.Core.resources {
         /// <summary>
         ///   Looks up a localized string similar to Saving changelogs.
         /// </summary>
-        public static string SAVING_CHANGELOGS {
+        internal static string SAVING_CHANGELOGS {
             get {
                 return ResourceManager.GetString("SAVING_CHANGELOGS", resourceCulture);
             }
@@ -234,7 +243,7 @@ namespace ChaoticOnyx.Tools.Core.resources {
         /// <summary>
         ///   Looks up a localized string similar to Saving HTML.
         /// </summary>
-        public static string SAVING_HTML {
+        internal static string SAVING_HTML {
             get {
                 return ResourceManager.GetString("SAVING_HTML", resourceCulture);
             }

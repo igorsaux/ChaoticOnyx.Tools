@@ -4,10 +4,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace ChaoticOnyx.Tools.Core
 {
@@ -28,18 +24,15 @@ namespace ChaoticOnyx.Tools.Core
 			var assembly = Assembly.GetAssembly(typeof(Tool));
 			Debug.Assert(assembly != null);
 
-			var toolTypes = assembly.GetTypes()
-									.Where(t => t.IsAbstract == false && t.IsSubclassOf(typeof(Tool)))
-									.ToList();
+			List<Type> toolTypes = assembly.GetTypes()
+										   .Where(t => t.IsAbstract == false && t.IsSubclassOf(typeof(Tool)))
+										   .ToList();
 
 			foreach (var type in toolTypes)
 			{
-				ToolAttribute? attribute = type.GetCustomAttribute<ToolAttribute>();
+				var attribute = type.GetCustomAttribute<ToolAttribute>();
 
-				if (attribute == null)
-				{
-					continue;
-				}
+				if (attribute == null) { continue; }
 
 				s_tools.Add(attribute, type);
 			}
@@ -58,22 +51,14 @@ namespace ChaoticOnyx.Tools.Core
 			return Tools.FirstOrDefault(t => t.RunCommand == command);
 		}
 
-		public static int RunTool(ToolAttribute tool, string[] args)
+		public static int RunTool(ToolAttribute tool, string[]? args = null)
 		{
-			Type   toolType     = s_tools[tool];
-			string toolTypeName = toolType.Name;
+			Type toolType     = s_tools[tool];
+			var  toolInstance = (Tool?) Activator.CreateInstance(toolType);
 
-			IHost? host = Host.CreateDefaultBuilder(args)
-							  .ConfigureHostConfiguration(c => c.AddJsonFile($"{toolTypeName}.json"))
-							  .Build();
+			if (toolInstance == null) { throw new InvalidOperationException($"Can't instantiate {toolType}"); }
 
-			ILoggerFactory? loggerFactory = host.Services.GetService<ILoggerFactory>();
-			IConfiguration? configuration = host.Services.GetService<IConfiguration>();
-			Debug.Assert(loggerFactory != null);
-			Debug.Assert(configuration != null);
-			ILogger?        logger        = loggerFactory.CreateLogger(toolTypeName);
-			var             toolInstance  = (Tool) Activator.CreateInstance(toolType, logger, configuration);
-			Debug.Assert(toolInstance != null);
+			toolInstance.Configure(args);
 
 			return toolInstance.Run();
 		}
