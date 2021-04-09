@@ -25,8 +25,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator.Parsers
 			Debug.Assert(assembly != null);
 
 			List<Type> parserTypes = assembly.GetTypes()
-											 .Where(t => t.IsAbstract == false
-														 && t.IsSubclassOf(typeof(ChangelogParser)))
+											 .Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(ChangelogParser)))
 											 .ToList();
 
 			foreach (var type in parserTypes)

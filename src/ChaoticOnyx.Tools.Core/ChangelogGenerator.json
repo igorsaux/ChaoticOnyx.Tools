@@ -1,19 +1,11 @@
 ﻿{
-    "Logging": {
-        "LogLevel": {
-            "Default": "Debug",
-            "System": "Information",
-            "Microsoft": "Information",
-            "ChangelogGenerator": "Information"
-        }
-    },
     "Settings": {
-        "ChangelogsFolder": "C:/Users/Admin/Desktop/OnyxBay/html/changelogs/",
-        "ChangelogsCache": "C:/Users/Admin/Desktop/OnyxBay/html/changelogs/.all_changelog.yml",
-        "HtmlChangelog": "C:/Users/Admin/Desktop/OnyxBay/html/changelog.html",
+        "ChangelogsFolder": "./html/changelogs/",
+        "ChangelogsCache": "./html/changelogs/.all_changelog.yml",
+        "HtmlChangelog": "./html/changelog.html",
         "DryRun": false,
         "GenerateHTML": true,
-        "HtmlTemplate": "C:/Users/Admin/Desktop/OnyxBay/html/templates/changelog.tmpl",
+        "HtmlTemplate": "./html/templates/changelog.tmpl",
         "ValidPrefixes": [
             "bugfix",
             "wip",
