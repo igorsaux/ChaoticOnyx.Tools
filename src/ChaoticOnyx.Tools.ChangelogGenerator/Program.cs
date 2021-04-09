@@ -32,7 +32,7 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
 				return 0;
 			}
 
-			if (ValidatePrefixes(changelogs) == false) { return -1; }
+			if (!ValidatePrefixes(changelogs)) { return -1; }
 
 			Console.PrintInfo($"{ChangelogGeneratorResources.NEW_CHANGELOGS} {changelogs.Count}");
 
@@ -73,17 +73,18 @@ namespace ChaoticOnyx.Tools.ChangelogGenerator
 
 		private bool ValidatePrefixes(ICollection<Changelog> changelogs)
 		{
+			var fail = false;
+		
 			foreach (Change change in from changelog in changelogs
 									  from change in changelog.Changes
 									  where !_settings.ValidPrefixes.Contains(change.Prefix)
 									  select change)
 			{
 				Console.PrintError($"{ChangelogGeneratorResources.INVALID_PREFIX} {change.Prefix}");
-
-				return false;
+				fail = true;
 			}
 
-			return true;
+			return !fail;
 		}
 	}
 }

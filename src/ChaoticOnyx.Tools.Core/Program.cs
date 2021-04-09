@@ -12,7 +12,7 @@ namespace ChaoticOnyx.Tools.Core
 			foreach (var tool in ToolProvider.Tools)
 			{
 				string? description = CoreResources.ResourceManager.GetString(tool.Description);
-				Console.WriteLine($"	{tool.RunCommand} - {description}");
+				Console.WriteLine($"\t{tool.RunCommand} - {description}");
 			}
 		}
 
