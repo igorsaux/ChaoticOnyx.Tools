@@ -25,7 +25,7 @@ namespace ChaoticOnyx.Tools.Core
 			Debug.Assert(assembly != null);
 
 			List<Type> toolTypes = assembly.GetTypes()
-										   .Where(t => t.IsAbstract == false && t.IsSubclassOf(typeof(Tool)))
+										   .Where(t => !t.IsAbstract && t.IsSubclassOf(typeof(Tool)))
 										   .ToList();
 
 			foreach (var type in toolTypes)
